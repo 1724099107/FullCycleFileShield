@@ -65,6 +65,25 @@ def download_dependency(dependency: str, download_dir: str) -> bool:
     try:
         print(f"正在下载依赖: {dependency}")
         
+        # 清理已存在的文件，确保直接替换
+        if os.path.exists(download_dir):
+            # 获取依赖包名称（不含版本号）
+            package_name = dependency
+            if '==' in package_name:
+                package_name = package_name.split('==')[0]
+            elif '>=' in package_name:
+                package_name = package_name.split('>=')[0]
+            elif '<=' in package_name:
+                package_name = package_name.split('<=')[0]
+            package_name = package_name.strip()
+            
+            # 删除已存在的相关文件
+            for file in os.listdir(download_dir):
+                if file.startswith(package_name) and (file.endswith('.whl') or file.endswith('.tar.gz')):
+                    file_path = os.path.join(download_dir, file)
+                    os.remove(file_path)
+                    print(f"已删除已存在的文件: {file}")
+        
         # 构建pip命令
         pip_cmd = [
             sys.executable,
