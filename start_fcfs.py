@@ -125,6 +125,10 @@ def print_status_info() -> None:
     vm_detected = is_virtual_machine()
     print(f"虚拟机环境: {'是' if vm_detected else '否'}")
     
+    # 检查是否为Windows系统
+    if not platform.system() == "Windows":
+        print("[警告] 本软件仅支持Windows系统，可能无法正常运行！")
+    
     print(f"错误日志文件: {log_file}")
 
 # 尝试安装依赖
@@ -237,6 +241,18 @@ def check_dependencies() -> bool:
 
 if __name__ == "__main__":
     try:
+        # 检查是否为Windows系统
+        if not platform.system() == "Windows":
+            print("[错误] 本软件仅支持Windows系统，无法在当前操作系统上运行！")
+            print(f"当前操作系统: {platform.platform()}")
+            print("请在Windows 10/11系统上运行本软件。")
+            print("\n按任意键退出...")
+            try:
+                input()
+            except:
+                pass
+            sys.exit(1)
+        
         # 清除旧的错误日志
         if os.path.exists(log_file):
             os.remove(log_file)

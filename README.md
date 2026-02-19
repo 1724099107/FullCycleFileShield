@@ -42,15 +42,15 @@ FullCycleFileShield (FCFS) 是一款符合 GB/T39786-2021 第5级和 BMB21-2019 
    - 多线程并行删除机制，显著提升处理效率
    - 动态线程池管理，根据系统负载自动调整线程数量
    - 硬件兼容性实现，支持主流CPU架构和国产CPU
-   - 软件兼容性实现，支持Windows、macOS、Linux等平台
+   - 软件兼容性实现，仅支持Windows平台
 
 7. **虚拟机兼容**: 优化了在虚拟机环境中的运行性能
    - 自动检测虚拟机环境
    - 适配虚拟机硬件限制
 
-8. **跨平台兼容**: 支持Windows、Linux、macOS等主流操作系统
-   - 适配不同硬件架构（x86、ARM等）
-   - 支持国产处理器和操作系统
+8. **Windows兼容**: 支持Windows 10/11等主流Windows操作系统
+   - 适配不同硬件架构（x86、x86-64等）
+   - 支持国产处理器的Windows设备
 
 ## 技术架构
 
@@ -62,10 +62,10 @@ FullCycleFileShield (FCFS) 是一款符合 GB/T39786-2021 第5级和 BMB21-2019 
   - psutil: 系统资源监控
   - numpy: 数据处理
 
-- **支持平台**: Windows 10/11, Linux, macOS
-- **虚拟机支持**: VirtualBox, VMware, Hyper-V, KVM等
-- **硬件架构支持**: x86, x86-64, ARM (包括Apple Silicon)
-- **国产硬件支持**: 基于龙芯、飞腾、鲲鹏等国产处理器的设备
+- **支持平台**: Windows 10/11
+- **虚拟机支持**: VirtualBox, VMware, Hyper-V等
+- **硬件架构支持**: x86, x86-64
+- **国产硬件支持**: 基于龙芯、飞腾、鲲鹏等国产处理器的Windows设备
 
 ## 快速开始
 
@@ -85,9 +85,6 @@ FullCycleFileShield (FCFS) 是一款符合 GB/T39786-2021 第5级和 BMB21-2019 
 ```bash
 # Windows
 python start_fcfs.py
-
-# Linux/macOS
-python3 start_fcfs.py
 ```
 
 **方法二：使用批处理文件（Windows）**
@@ -118,18 +115,12 @@ run_fcfs.bat
    ```bash
    # Windows
    pip install -r requirements.txt
-
-   # Linux/macOS
-   pip3 install -r requirements.txt
    ```
 
 3. 运行程序
    ```bash
    # Windows
    python start_fcfs.py
-
-   # Linux/macOS
-   python3 start_fcfs.py
    ```
 
 #### 方法二：使用批处理文件（Windows）
