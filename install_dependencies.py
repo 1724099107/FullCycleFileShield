@@ -206,6 +206,10 @@ def verify_dependencies() -> bool:
         ("numpy", "numpy", False),              # 数值计算，可选
     ]
     
+    # Windows系统特有依赖
+    if platform.system() == "Windows":
+        core_dependencies.append(("win32file", "pywin32", False))  # 文件元数据删除，可选
+    
     all_core_ok = True
     missing_optional = []
     
