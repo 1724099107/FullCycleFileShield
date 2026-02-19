@@ -142,7 +142,26 @@ run_fcfs.bat
 
 由于GitHub的文件大小限制（100MB），我们没有包含`offline_deps`目录在仓库中。启动脚本会自动从系统的`site-packages`目录加载依赖包，因此您需要确保所有必要的依赖包都已正确安装。
 
-### 4. GPU加速支持
+### 4. 离线依赖下载
+
+我们提供了一个依赖下载脚本`download_deps.py`，用于在第一次运行前下载所有依赖到本地目录。这样您就可以在没有网络连接的环境中运行程序。
+
+**使用方法**：
+```bash
+# 下载所有依赖到本地
+python download_deps.py
+
+# 然后运行程序
+python start_fcfs.py
+```
+
+这个脚本会：
+1. 从`requirements.txt`文件读取依赖列表
+2. 下载所有依赖到`offline_deps`目录
+3. 验证下载是否成功
+4. 提供详细的下载状态和错误信息
+
+### 5. GPU加速支持
 
 如果您需要GPU加速功能，请确保安装了与您的Python版本兼容的PyTorch版本：
 
