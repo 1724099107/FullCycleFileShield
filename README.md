@@ -5,6 +5,7 @@
 - **项目名称**: FullCycleFileShield (FCFS)
 - **版本号**: 1.0.9
 - **开发团队**: ~~TraeAI Development Team~~ 神秘代码组织
+- **联系方式**: qexefecet276@gmail.com
 - **发布日期**: 2026-02-19 午夜
 
 ## 项目概述

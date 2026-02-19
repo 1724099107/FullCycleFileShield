@@ -100,7 +100,7 @@ class AboutTab(QWidget):
         
         support_text = QLabel(
             "如果您在使用过程中遇到问题，欢迎联系我们的技术支持团队。\n\n" +
-            "邮箱: support@fcfs.free.nf\n" +
+            "邮箱: qexefecet276@gmail.com\n" +
             "网站: http://fcfs.free.nf\n" +
             "文档: http://fcfs.free.nf/docs"
         )
