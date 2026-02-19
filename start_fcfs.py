@@ -241,6 +241,25 @@ if __name__ == "__main__":
         if os.path.exists(log_file):
             os.remove(log_file)
         
+        # 检查是否是首次启动
+        first_run_flag = os.path.join(script_dir, ".first_run")
+        if not os.path.exists(first_run_flag):
+            print("\n=== 温馨提示 ===")
+            print("欢迎使用 FullCycleFileShield (FCFS)！")
+            print("这是您首次启动FCFS，建议您先安装所有必要的依赖。")
+            print("\n安装依赖的方法：")
+            print("1. 运行部署工具：python deploy_fcfs.py")
+            print("2. 或直接安装依赖：python -m pip install -r requirements.txt")
+            print("\n依赖安装完成后，FCFS将能够正常运行所有功能。")
+            print("==================\n")
+            
+            # 创建首次启动标记文件
+            try:
+                with open(first_run_flag, "w") as f:
+                    f.write(f"First run: {datetime.datetime.now().isoformat()}")
+            except Exception:
+                pass
+        
         print_status_info()
         
         # 检查依赖
