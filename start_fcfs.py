@@ -39,7 +39,9 @@ if os.path.exists(offline_deps_dir):
 elif os.path.exists(lib_dir):
     sys.path.insert(0, lib_dir)
     print(f"已添加本地依赖目录到sys.path: {lib_dir}")
-print(f"当前sys.path: {sys.path}")
+# 打印sys.path的前几个元素，确保包含了正确的路径
+print(f"当前sys.path前5个元素: {sys.path[:5]}")
+print(f"sys.path中是否包含site-packages: {'site-packages' in str(sys.path)}")
 
 # 错误日志文件
 log_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tmp", "startup_error.log")
@@ -125,6 +127,48 @@ def print_status_info() -> None:
     
     print(f"错误日志文件: {log_file}")
 
+# 尝试安装依赖
+import subprocess
+def install_dependency(package_name: str) -> bool:
+    """
+    安装依赖包
+    
+    Args:
+        package_name: 依赖包名称
+        
+    Returns:
+        bool: 安装是否成功
+    """
+    try:
+        print(f"正在安装依赖: {package_name}")
+        
+        # 构建pip命令
+        pip_cmd = [
+            sys.executable,
+            "-m", "pip",
+            "install",
+            package_name
+        ]
+        
+        # 执行pip命令
+        result = subprocess.run(
+            pip_cmd,
+            capture_output=True,
+            text=True,
+            check=False
+        )
+        
+        if result.returncode == 0:
+            print(f"✓ 依赖安装成功: {package_name}")
+            return True
+        else:
+            print(f"✗ 依赖安装失败: {package_name}")
+            print(f"错误信息: {result.stderr}")
+            return False
+    except Exception as e:
+        print(f"安装依赖时出错: {package_name} - {e}")
+        return False
+
 # 尝试导入关键依赖，验证依赖是否正确安装
 def check_dependencies() -> bool:
     """
@@ -147,29 +191,45 @@ def check_dependencies() -> bool:
     all_core_ok = True
     missing_optional = []
     
-    # 跳过离线依赖安装步骤，直接检查依赖是否已安装
-    # 因为我们已经将 offline_deps 目录添加到了 sys.path 中，程序应该能够直接导入这些依赖
+    # 检查offline_deps目录是否存在
     if os.path.exists(offline_deps_dir):
-        print(f"\n=== 使用离线依赖目录中的依赖 ===")
-        print("✓ 离线依赖目录存在，直接使用其中的依赖")
-        print("继续检查已安装的依赖...")
+        print(f"\n=== 检测到离线依赖目录 ===")
+        print("离线依赖目录存在，但安装脚本会自动处理依赖的安装和清理")
+        print("继续检查依赖...")
     
     for import_name, package_name, is_core in core_dependencies:
         try:
             module = __import__(import_name)
             version = getattr(module, "__version__", "未知版本")
-            print(f"✓ {import_name} 已安装 (版本: {version})")
+            print(f"[OK] {import_name} 已安装 (版本: {version})")
         except ImportError as e:
-            print(f"✗ 无法导入 {import_name}: {e}")
+            print(f"[ERROR] 无法导入 {import_name}: {e}")
             write_error_log(f"无法导入 {import_name}: {e}", e)
-            if is_core:
-                all_core_ok = False
+            
+            # 尝试自动安装依赖
+            print(f"尝试自动安装依赖: {package_name}")
+            if install_dependency(package_name):
+                # 安装成功后，再次尝试导入
+                try:
+                    module = __import__(import_name)
+                    version = getattr(module, "__version__", "未知版本")
+                    print(f"[OK] {import_name} 安装并导入成功 (版本: {version})")
+                except ImportError as e:
+                    print(f"[ERROR] 安装后仍无法导入 {import_name}: {e}")
+                    write_error_log(f"安装后仍无法导入 {import_name}: {e}", e)
+                    if is_core:
+                        all_core_ok = False
+                    else:
+                        missing_optional.append(import_name)
             else:
-                missing_optional.append(import_name)
+                if is_core:
+                    all_core_ok = False
+                else:
+                    missing_optional.append(import_name)
     
     # 显示可选依赖缺失信息
     if missing_optional:
-        print(f"\n⚠️  以下可选依赖缺失，但程序仍可运行:")
+        print(f"\n[WARNING] 以下可选依赖缺失，但程序仍可运行:")
         for dep in missing_optional:
             print(f"  - {dep}")
     
@@ -185,7 +245,7 @@ if __name__ == "__main__":
         
         # 检查依赖
         if not check_dependencies():
-            print("\n❌ 核心依赖检查失败，请检查错误信息")
+            print("\n[ERROR] 核心依赖检查失败，请检查错误信息")
             print("错误详情已写入: startup_error.log")
             print("\n按任意键退出...")
             try:
@@ -205,7 +265,7 @@ if __name__ == "__main__":
             window = MainWindow()
             sys.exit(app.exec_())
         except ImportError as e:
-            print(f"\n❌ 导入主程序模块失败: {e}")
+            print(f"\n[ERROR] 导入主程序模块失败: {e}")
             write_error_log("导入主程序模块失败", e)
             print("\n按任意键退出...")
             try:
@@ -214,12 +274,12 @@ if __name__ == "__main__":
                 pass
             sys.exit(1)
         except Exception as e:
-            print(f"\n❌ 启动主程序失败: {e}")
+            print(f"\n[ERROR] 启动主程序失败: {e}")
             write_error_log("启动主程序失败", e)
             raise
         
     except Exception as e:
-        print(f"\n❌ 启动失败: {e}")
+        print(f"\n[ERROR] 启动失败: {e}")
         print("错误详情已写入: startup_error.log")
         write_error_log("启动主程序失败", e)
         

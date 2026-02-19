@@ -19,8 +19,4 @@ pluggy>=1.0.0
 pytest>=7.0.0
 chardet>=4.0.0
 
-# GPU依赖 - 与Python 3.12兼容的版本
-# PyTorch 2.10.0 支持 Python 3.12
-torch<=2.10.0
-torchvision<=0.25.0
-torchaudio<=2.10.0
+# 仅使用CPU运算，已移除所有GPU相关依赖

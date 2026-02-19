@@ -1,4 +1,4 @@
-from .gpu_acceleration import GPU_ACCELERATOR
+from .gpu_acceleration import CPU_ACCELERATOR
 
 # 延迟导入numpy
 try:
@@ -78,8 +78,8 @@ class AntiQuantumAlgorithm:
         if length in self.chaotic_sequence_cache:
             return self.chaotic_sequence_cache[length].copy()
         
-        # 使用GPU加速器生成混沌序列
-        chaotic_sequence = GPU_ACCELERATOR.generate_chaotic_sequence(length, self.x0, self.n)
+        # 使用CPU加速器生成混沌序列
+        chaotic_sequence = CPU_ACCELERATOR.generate_chaotic_sequence(length, self.x0, self.n)
         
         # 转换为列表（只有当返回值是numpy数组时才调用tolist）
         if NUMPY_AVAILABLE and hasattr(chaotic_sequence, 'tolist'):
@@ -194,13 +194,13 @@ class AntiQuantumAlgorithm:
         if length == 0:
             return ""
         
-        # 使用GPU加速器进行置换
+        # 使用CPU加速器进行置换
         if NUMPY_AVAILABLE:
             chaotic_array = np.array(chaotic_sequence, dtype=int)
-            result = GPU_ACCELERATOR.accelerate_dna_permutation(dna_sequence, chaotic_array)
+            result = CPU_ACCELERATOR.accelerate_dna_permutation(dna_sequence, chaotic_array)
         else:
             # 不使用numpy，直接传递列表
-            result = GPU_ACCELERATOR.accelerate_dna_permutation(dna_sequence, chaotic_sequence)
+            result = CPU_ACCELERATOR.accelerate_dna_permutation(dna_sequence, chaotic_sequence)
         
         return result
     
@@ -221,13 +221,13 @@ class AntiQuantumAlgorithm:
         if length == 0:
             return ""
         
-        # 使用GPU加速器进行逆置换
+        # 使用CPU加速器进行逆置换
         if NUMPY_AVAILABLE:
             chaotic_array = np.array(chaotic_sequence, dtype=int)
-            result = GPU_ACCELERATOR.accelerate_dna_inverse_permutation(permuted_dna, chaotic_array)
+            result = CPU_ACCELERATOR.accelerate_dna_inverse_permutation(permuted_dna, chaotic_array)
         else:
             # 不使用numpy，直接传递列表
-            result = GPU_ACCELERATOR.accelerate_dna_inverse_permutation(permuted_dna, chaotic_sequence)
+            result = CPU_ACCELERATOR.accelerate_dna_inverse_permutation(permuted_dna, chaotic_sequence)
         
         return result
     

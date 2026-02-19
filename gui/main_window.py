@@ -14,7 +14,7 @@ from .decryption_tab import DecryptionTab
 from .deletion_tab import DeletionTab
 from .about_tab import AboutTab
 
-# 导入GPU环境管理
+# 导入CPU环境管理
 from utils.gpu_environment import init_gpu_environment, get_compute_device
 
 class MainWindow(QMainWindow):
@@ -39,23 +39,23 @@ class MainWindow(QMainWindow):
         if not self.show_disclaimer():
             sys.exit()
         
-        # 初始化GPU环境（在单独的线程中执行，避免阻塞UI）
+        # 初始化CPU环境（在单独的线程中执行，避免阻塞UI）
         import threading
-        def init_gpu_in_thread():
+        def init_cpu_in_thread():
             try:
-                print("正在初始化GPU环境...")
-                gpu_available = init_gpu_environment()
+                print("正在初始化CPU环境...")
+                cpu_available = init_gpu_environment()
                 compute_device = get_compute_device()
-                print(f"GPU环境初始化完成，GPU可用: {gpu_available}")
+                print(f"CPU环境初始化完成，CPU可用: {cpu_available}")
                 print(f"当前计算设备: {compute_device}")
             except Exception as e:
-                print(f"GPU环境初始化失败: {e}")
-                # 即使GPU初始化失败，程序也能继续运行
+                print(f"CPU环境初始化失败: {e}")
+                # 即使CPU初始化失败，程序也能继续运行
         
-        # 启动线程初始化GPU环境
-        gpu_thread = threading.Thread(target=init_gpu_in_thread)
-        gpu_thread.daemon = True  # 设为守护线程，主程序退出时自动退出
-        gpu_thread.start()
+        # 启动线程初始化CPU环境
+        cpu_thread = threading.Thread(target=init_cpu_in_thread)
+        cpu_thread.daemon = True  # 设为守护线程，主程序退出时自动退出
+        cpu_thread.start()
         
         # 初始化系统托盘
         try:
@@ -268,12 +268,12 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     if args.test:
-        # 测试模式，只初始化GPU环境
-        print("测试模式：初始化GPU环境...")
+        # 测试模式，只初始化CPU环境
+        print("测试模式：初始化CPU环境...")
         from utils.gpu_environment import init_gpu_environment, get_compute_device
-        gpu_available = init_gpu_environment()
+        cpu_available = init_gpu_environment()
         compute_device = get_compute_device()
-        print(f"GPU环境初始化完成，GPU可用: {gpu_available}")
+        print(f"CPU环境初始化完成，CPU可用: {cpu_available}")
         print(f"当前计算设备: {compute_device}")
         print("测试模式完成")
         sys.exit(0)

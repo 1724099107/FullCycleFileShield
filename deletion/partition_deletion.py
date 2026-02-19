@@ -120,8 +120,8 @@ class PartitionDeletion:
             'cpu_architecture': platform.architecture(),
             'cpu_count': multiprocessing.cpu_count(),
             'memory_total': psutil.virtual_memory().total,
-            'gpu_available': is_gpu_available(),
-            'best_device': get_best_device()
+            'cpu_available': is_gpu_available(),
+            'compute_device': get_best_device()
         }
         
         # 获取磁盘信息

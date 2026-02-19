@@ -1,7 +1,7 @@
 # utils module initialization file
 """
 工具模块集合
-包含GPU环境检测、内存清理、哈希计算和依赖检查等功能
+包含CPU环境检测、内存清理、哈希计算和依赖检查等功能
 """
 
 from .gpu_environment import (
@@ -15,7 +15,7 @@ from .dependency_checker import check_dependencies, check_directory_structure, c
 from .random_generator import generate_secure_key, generate_secure_random_int, generate_secure_random_string
 
 __all__ = [
-    # GPU环境相关
+    # CPU环境相关
     'initialize_gpu',
     'get_available_devices',
     'get_best_device',

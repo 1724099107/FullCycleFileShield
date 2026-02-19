@@ -26,12 +26,10 @@ FullCycleFileShield (FCFS) 是一款符合 GB/T39786-2021 第5级和 BMB21-2019 
 
 3. **7Z压缩**: 支持高压缩级别（1-9）
 
-4. **GPU加速**: 支持NVIDIA、AMD和Intel GPU
-   - 自动检测和选择最佳计算设备
-   - 无GPU时自动回退到CPU
-   - 支持国产NPU设备
-   - **Intel核显支持**: 支持Intel UHD Graphics等集成显卡，通过ONNX Runtime with DirectML实现
-   - PyTorch 2.10.0已正确安装并配置
+4. **CPU运算**: 仅使用CPU进行计算
+   - 确保在任何环境下都能稳定运行
+   - 无需额外的硬件加速设备
+   - 优化的CPU计算性能
    - 支持CPU模式作为备用方案
 
 5. **图形界面**: 多标签页布局，系统托盘集成
@@ -60,12 +58,7 @@ FullCycleFileShield (FCFS) 是一款符合 GB/T39786-2021 第5级和 BMB21-2019 
   - pycryptodomex: 密码学算法
   - py7zr: 7Z压缩
   - psutil: 系统资源监控
-  - numpy: 数据处理（GPU加速需要）
-  - torch: PyTorch深度学习框架（GPU加速）
-  - torchvision: 计算机视觉库（PyTorch配套）
-  - torchaudio: 音频处理库（PyTorch配套）
-  - onnxruntime-directml: ONNX Runtime with DirectML（Intel核显加速）
-  - onnx: ONNX模型格式支持
+  - numpy: 数据处理
 
 - **支持平台**: Windows 10/11, Linux, macOS
 - **虚拟机支持**: VirtualBox, VMware, Hyper-V, KVM等
@@ -161,17 +154,15 @@ python start_fcfs.py
 3. 验证下载是否成功
 4. 提供详细的下载状态和错误信息
 
-### 5. GPU加速支持
+### 5. 系统配置
 
-如果您需要GPU加速功能，请确保安装了与您的Python版本兼容的PyTorch版本：
+该系统仅使用CPU进行计算，无需额外的硬件加速设备。确保您的系统满足以下要求：
 
-```bash
-# 安装支持CUDA的PyTorch（如果您有NVIDIA GPU）
-pip install torch<=2.10.0+cu117 torchvision<=0.15.1+cu117 torchaudio<=2.10.0+cu117 -f https://download.pytorch.org/whl/torch_stable.html
+- 至少4GB内存
+- 10GB可用磁盘空间
+- Python 3.12或更高版本
 
-# 安装仅支持CPU的PyTorch（如果您没有GPU）
-pip install torch<=2.10.0+cpu torchvision<=0.15.1+cpu torchaudio<=2.10.0+cpu -f https://download.pytorch.org/whl/torch_stable.html
-```
+系统会自动使用CPU进行所有计算，确保在任何环境下都能稳定运行。
 
 ## 使用指南
 
@@ -328,9 +319,6 @@ python3 maintenance/offline_maintenance.py
 # 运行跨平台兼容性测试
 python tests/test_cross_platform_compatibility.py
 
-# 测试GPU加速器
-python tests/test_gpu_acceleration.py
-
 # 测试主窗口显示
 python tests/test_window_display.py
 
@@ -416,23 +404,15 @@ python tests/comprehensive_test.py
 
 1. **Intel核显支持**
    - 新增对Intel UHD Graphics等集成显卡的支持
-   - 通过ONNX Runtime with DirectML实现Intel核显加速
-   - 优化GPU环境检测逻辑，自动识别和使用Intel核显
+
 
 2. **依赖包更新**
-   - 新增 onnxruntime-directml 1.24.1（Intel核显加速需要）
-   - 新增 onnx 1.20.1（ONNX模型格式支持）
+
    - 新增 ml_dtypes 0.5.4（ONNX依赖）
 
 3. **代码改进**
-   - 更新 `utils/gpu_environment.py`，添加对ONNX Runtime with DirectML的支持
-   - 优化设备属性获取逻辑，支持DirectML设备
-   - 改进GPU环境初始化流程，提高稳定性
 
 4. **测试完善**
-   - 新增 `tests/test_intel_gpu_integration.py`（Intel核显集成测试）
-   - 新增 `tests/test_onnx_runtime_directml.py`（ONNX Runtime测试）
-   - 完善GPU加速测试覆盖范围
 
 ### 版本 1.0.7
 **更新日期**: 2026-02-18
@@ -462,10 +442,7 @@ python tests/comprehensive_test.py
    - 修正函数名称不匹配问题，确保模块导入正常工作
 
 4. **兼容性改进**
-   - 增强了 GPU 环境初始化的错误处理，确保在没有 GPU 或 GPU 驱动安装不正确的情况下程序仍能正常运行
    - 优化了依赖检查逻辑，确保所有核心依赖都能正确安装和使用
-   - 解决了 PyTorch 初始化失败的问题
-   - 处理了 TensorFlow 在 Python 3.14 上无法安装的兼容性问题
 
 5. **性能优化**
    - 改进了依赖加载机制，提高了程序启动速度
