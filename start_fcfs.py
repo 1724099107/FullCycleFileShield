@@ -248,8 +248,7 @@ if __name__ == "__main__":
             print("欢迎使用 FullCycleFileShield (FCFS)！")
             print("这是您首次启动FCFS，建议您先安装所有必要的依赖。")
             print("\n安装依赖的方法：")
-            print("1. 运行部署工具：python deploy_fcfs.py")
-            print("2. 或直接安装依赖：python -m pip install -r requirements.txt")
+            print("直接安装依赖：python -m pip install -r requirements.txt")
             print("\n依赖安装完成后，FCFS将能够正常运行所有功能。")
             print("==================\n")
             
