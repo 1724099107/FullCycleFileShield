@@ -169,31 +169,46 @@ class BMB212019Deletion:
             # 修改文件的创建时间、修改时间和访问时间
             if platform.system() == 'Windows':
                 # Windows系统
-                import win32file
-                import win32con
-                import pywintypes
-                
-                # 设置文件时间为1970-01-01 00:00:00
-                # 使用更兼容的时间格式
-                import datetime
-                new_time = pywintypes.Time(datetime.datetime(1970, 1, 1, 0, 0, 0))
-                win32file.SetFileTime(
-                    win32file.CreateFile(
-                        file_path,
-                        win32con.GENERIC_WRITE,
-                        win32con.FILE_SHARE_WRITE | win32con.FILE_SHARE_READ,
-                        None,
-                        win32con.OPEN_EXISTING,
-                        0,
-                        None
-                    ),
-                    new_time,  # 创建时间
-                    new_time,  # 访问时间
-                    new_time   # 修改时间
-                )
+                try:
+                    import win32file
+                    import win32con
+                    import pywintypes
+                    
+                    # 设置文件时间为1970-01-01 00:00:00
+                    # 使用更兼容的时间格式
+                    import datetime
+                    new_time = pywintypes.Time(datetime.datetime(1970, 1, 1, 0, 0, 0))
+                    win32file.SetFileTime(
+                        win32file.CreateFile(
+                            file_path,
+                            win32con.GENERIC_WRITE,
+                            win32con.FILE_SHARE_WRITE | win32con.FILE_SHARE_READ,
+                            None,
+                            win32con.OPEN_EXISTING,
+                            0,
+                            None
+                        ),
+                        new_time,  # 创建时间
+                        new_time,  # 访问时间
+                        new_time   # 修改时间
+                    )
+                except ImportError:
+                    # 如果win32file模块不可用，使用备选方案
+                    try:
+                        # 使用os.utime作为备选方案
+                        import datetime
+                        epoch_time = 0  # 1970-01-01 00:00:00
+                        os.utime(file_path, (epoch_time, epoch_time))
+                        print(f"[INFO] 使用os.utime成功修改文件时间: {file_path}")
+                    except Exception as e:
+                        print(f"[警告] 文件元数据删除失败: {e}")
+                        print("[提示] 请安装pywin32库以确保完全删除文件元数据:")
+                        print("  pip install pywin32")
+                except Exception as e:
+                    print(f"[警告] 文件元数据删除失败: {e}")
             else:
-                # Linux/macOS系统
-                subprocess.run(['touch', '-t', '197001010000.00', file_path], check=True)
+                # 非Windows系统，本软件仅支持Windows
+                print("[警告] 本软件仅支持Windows系统，文件元数据删除可能不完全")
                 
             # 重命名文件为随机名称
             dir_path = os.path.dirname(file_path)

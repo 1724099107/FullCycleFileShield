@@ -19,4 +19,7 @@ pluggy>=1.0.0
 pytest>=7.0.0
 chardet>=4.0.0
 
+# Windows系统依赖
+pywin32>=306  # 提供win32file模块，用于文件元数据删除
+
 # 仅使用CPU运算，已移除所有GPU相关依赖
