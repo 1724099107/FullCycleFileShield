@@ -1,0 +1,10 @@
+{
+    "keys": {
+        "backup_test_key": {
+            "ciphertext": "9d54cbd28caaeb89e787da4eb1c557ade43b4f7fedabe707adc5e7203a3b53df",
+            "salt": "ac24a6e517dab6c11d1a5035dff92ae3",
+            "iv": "b85080d9b421936c078e6da307dfd948",
+            "tag": "7afc40ea098cd1b747f97a537bc1a88e"
+        }
+    }
+}

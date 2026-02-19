@@ -1,0 +1,47 @@
+# 依赖目录
+offline_deps/
+
+# 日志文件
+*.log
+
+# 临时文件
+*.tmp
+*.temp
+
+# 编译产物
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE配置文件
+.vscode/
+.idea/
+
+# 系统文件
+Thumbs.db
+.DS_Store
+
+# 测试产物
+coverage/
+
+# 环境配置
+.env
+.env.local
+
+# 构建产物
+build/
+dist/
+*.egg-info/
+
+# 运行时数据
+runtime/
+
+# Windows批处理文件（如果需要保留则注释掉）
+# run_fcfs.bat
+
+# 诊断文件
+dxdiag.txt
+intel_gpu_*.txt
+
+# 维护相关
+maintenance/
