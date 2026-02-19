@@ -32,6 +32,7 @@ config/settings.json
 
 # 依赖目录（使用离线依赖）
 lib/
+offline_deps/
 
 # 测试文件
 tests/__pycache__/
