@@ -1,47 +1,85 @@
-# 依赖目录
-offline_deps/
+# 操作系统文件
+Thumbs.db
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 
-# 日志文件
-*.log
+# Python文件
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 虚拟环境
+venv/
+env/
+*.venv/
 
 # 临时文件
+tmp/
+temp/
 *.tmp
 *.temp
 
-# 编译产物
-__pycache__/
-*.pyc
-*.pyo
+# 日志文件
+*.log
+logs/
 
-# IDE配置文件
+# 配置文件
+config/settings.json
+
+# 依赖目录（使用离线依赖）
+lib/
+
+# 测试文件
+tests/__pycache__/
+
+# IDE文件
 .vscode/
 .idea/
+*.swp
+*.swo
 
-# 系统文件
-Thumbs.db
-.DS_Store
-
-# 测试产物
-coverage/
-
-# 环境配置
-.env
-.env.local
-
-# 构建产物
+# 构建文件
 build/
 dist/
 *.egg-info/
 
-# 运行时数据
-runtime/
+# 加密相关
+*.enc
+*.encrypted
 
-# Windows批处理文件（如果需要保留则注释掉）
-# run_fcfs.bat
+# 备份文件
+*.bak
+*.backup
 
-# 诊断文件
+# Windows文件
+*.exe
+*.dll
+*.lib
+*.so
+*.pyd
+*.pdb
+*.ilk
+
+# macOS文件
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux文件
+*~
+
+# 编辑器文件
+*.vim
+*.emacs
+*.sublime-*
+
+# 系统文件
 dxdiag.txt
 intel_gpu_*.txt
 
-# 维护相关
-maintenance/
+# 反馈文件
+feedback/*.log

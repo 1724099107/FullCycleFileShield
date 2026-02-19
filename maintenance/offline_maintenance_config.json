@@ -1,0 +1,10 @@
+{
+  "dependency_update_interval": "30d",
+  "version_check_interval": "7d",
+  "backup_retention": 5,
+  "auto_cleanup": true,
+  "notification_enabled": true,
+  "feedback_email": "",
+  "last_update_check": "2026-02-17T17:17:46.404413",
+  "last_version_check": "2026-02-17T17:17:46.406337"
+}
