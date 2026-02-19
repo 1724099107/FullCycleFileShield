@@ -28,17 +28,17 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 lib_dir = os.path.join(script_dir, "lib")
 offline_deps_dir = os.path.join(script_dir, "offline_deps")
 
-# 重置sys.path，只使用我们的离线依赖目录，保留标准库路径
-print("重置sys.path，只使用离线依赖目录...")
+# 保留原始sys.path，确保能够从系统的site-packages目录加载依赖包
+print("保留原始sys.path，确保能够从系统的site-packages目录加载依赖包...")
 # 保存原始sys.path以便后续使用
 original_path = sys.path.copy()
-# 过滤sys.path，保留标准库路径，移除系统的site-packages目录
-standard_lib_paths = [path for path in sys.path if "site-packages" not in path]
-# 在标准库路径前面添加我们的离线依赖目录
+# 在标准库路径前面添加我们的依赖目录（如果存在）
 if os.path.exists(offline_deps_dir):
-    sys.path = [offline_deps_dir] + standard_lib_paths
-else:
-    sys.path = [lib_dir] + standard_lib_paths
+    sys.path.insert(0, offline_deps_dir)
+    print(f"已添加离线依赖目录到sys.path: {offline_deps_dir}")
+elif os.path.exists(lib_dir):
+    sys.path.insert(0, lib_dir)
+    print(f"已添加本地依赖目录到sys.path: {lib_dir}")
 print(f"当前sys.path: {sys.path}")
 
 # 错误日志文件

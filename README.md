@@ -102,26 +102,56 @@ run_fcfs.bat
 
 ### 1. 系统要求
 - **操作系统**：Windows 10/11, Linux, macOS
-- **Python版本**：3.9及以上
+- **Python版本**：3.12及以上
 - **硬件要求**：至少4GB内存，10GB可用磁盘空间
 - **DirectX要求**：Windows系统需要DirectX 12或更高版本（Intel核显加速需要）
 
 ### 2. 安装方法
 
-#### 方法一：直接运行（推荐）
-项目已包含所有必要的依赖，无需额外安装，直接运行启动脚本即可。启动脚本会自动从`offline_deps`目录安装所需依赖。
+#### 方法一：使用pip安装依赖（推荐）
+1. 克隆仓库
+   ```bash
+   git clone https://github.com/1724099107/FullCycleFileShield.git
+   cd FullCycleFileShield
+   ```
 
-#### 方法二：手动安装依赖（可选）
-如果需要手动安装依赖，可以使用以下命令：
+2. 安装依赖
+   ```bash
+   # Windows
+   pip install -r requirements.txt
+
+   # Linux/macOS
+   pip3 install -r requirements.txt
+   ```
+
+3. 运行程序
+   ```bash
+   # Windows
+   python start_fcfs.py
+
+   # Linux/macOS
+   python3 start_fcfs.py
+   ```
+
+#### 方法二：使用批处理文件（Windows）
 ```bash
-# Windows - 使用离线依赖目录
-pip install -r requirements.txt --no-index --find-links=offline_deps
+run_fcfs.bat
+```
 
-# Linux/macOS - 使用离线依赖目录
-pip3 install -r requirements.txt --no-index --find-links=offline_deps
+### 3. 依赖包说明
 
-# 备用方案 - 使用lib目录
-pip install -r requirements.txt --no-index --find-links=lib
+由于GitHub的文件大小限制（100MB），我们没有包含`offline_deps`目录在仓库中。启动脚本会自动从系统的`site-packages`目录加载依赖包，因此您需要确保所有必要的依赖包都已正确安装。
+
+### 4. GPU加速支持
+
+如果您需要GPU加速功能，请确保安装了与您的Python版本兼容的PyTorch版本：
+
+```bash
+# 安装支持CUDA的PyTorch（如果您有NVIDIA GPU）
+pip install torch<=2.10.0+cu117 torchvision<=0.15.1+cu117 torchaudio<=2.10.0+cu117 -f https://download.pytorch.org/whl/torch_stable.html
+
+# 安装仅支持CPU的PyTorch（如果您没有GPU）
+pip install torch<=2.10.0+cpu torchvision<=0.15.1+cpu torchaudio<=2.10.0+cpu -f https://download.pytorch.org/whl/torch_stable.html
 ```
 
 ## 使用指南
