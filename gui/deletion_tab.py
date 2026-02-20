@@ -137,46 +137,6 @@ class DeletionWorker(QThread):
                 else:
                     self.log_update.emit(f"\n✗ 文件夹删除可能不彻底！")
                     self.finished.emit(False, "删除可能不彻底")
-            else:
-                # 分区删除
-                # 导入删除相关模块
-                from deletion.partition_deletion import PartitionDeletion
-                
-                # 1. 创建分区删除工具
-                self.log_update.emit(f"开始使用BMB21-2019标准删除分区...")
-                deletion_tool = PartitionDeletion()
-                
-                # 2. 执行分区删除操作
-                stats = deletion_tool.delete_partition(self.target_path, confirm=True)
-                
-                # 计算剩余时间
-                elapsed_time = time.time() - start_time
-                estimated_total_time = elapsed_time / 0.8  # 假设80%进度已完成
-                remaining_time = max(0, estimated_total_time - elapsed_time)
-                self.time_remaining.emit(f"{int(remaining_time)}秒")
-                self.progress_update.emit(80)
-                
-                # 3. 验证删除结果
-                self.log_update.emit("\n开始验证删除结果...")
-                success = deletion_tool.verify_deletion(self.target_path)
-                
-                self.log_update.emit(f"验证结果: {'成功' if success else '失败'}")
-                
-                # 4. 生成删除验证报告
-                self.log_update.emit("\n生成删除验证报告...")
-                report = deletion_tool.get_deletion_report()
-                
-                self.log_update.emit(f"删除报告: 总文件数={report['stats']['total_files']}, 已删除={report['stats']['deleted_files']}, 失败={report['stats']['failed_files']}")
-                
-                self.progress_update.emit(100)
-                self.time_remaining.emit("0秒")
-                
-                if success:
-                    self.log_update.emit(f"\n✓ 分区彻底删除完成！")
-                    self.finished.emit(True, "删除成功")
-                else:
-                    self.log_update.emit(f"\n✗ 分区删除可能不彻底！")
-                    self.finished.emit(False, "删除可能不彻底")
         except Exception as e:
             self.log_update.emit(f"\n✗ 删除失败: {str(e)}")
             self.finished.emit(False, f"删除失败: {str(e)}")
@@ -217,13 +177,8 @@ class DeletionTab(QWidget):
         self.folder_radio = QRadioButton("文件夹删除")
         self.type_group.addButton(self.folder_radio)
         
-        # 分区删除选项
-        self.partition_radio = QRadioButton("分区删除")
-        self.type_group.addButton(self.partition_radio)
-        
         type_layout.addWidget(self.file_radio)
         type_layout.addWidget(self.folder_radio)
-        type_layout.addWidget(self.partition_radio)
         type_group.setLayout(type_layout)
         
         # 目标选择部分
@@ -300,7 +255,7 @@ class DeletionTab(QWidget):
     
     def browse_target(self):
         """
-        浏览选择目标文件、文件夹或分区
+        浏览选择目标文件或文件夹
         """
         if self.file_radio.isChecked():
             # 文件选择，支持多选
@@ -317,64 +272,6 @@ class DeletionTab(QWidget):
             )
             if target_path:
                 self.target_line_edit.setText(target_path)
-        else:
-            # 分区选择
-            from PyQt5.QtWidgets import QDialog, QVBoxLayout, QHBoxLayout, QListWidget, QPushButton, QLabel
-            from deletion.partition_deletion import PartitionDeletion
-            
-            # 创建分区选择对话框
-            dialog = QDialog(self)
-            dialog.setWindowTitle("选择要删除的分区")
-            dialog.setGeometry(100, 100, 600, 400)
-            
-            layout = QVBoxLayout()
-            
-            # 分区列表
-            self.partition_list = QListWidget()
-            
-            # 获取分区信息
-            try:
-                deleter = PartitionDeletion()
-                partitions = deleter.get_partitions()
-                
-                for i, partition in enumerate(partitions):
-                    partition_info = f"{partition['device']} - {partition['description']}"
-                    partition_info += f" (文件系统: {partition['file_system']}, 总容量: {partition['size'] / (1024 ** 3):.2f} GB)"
-                    self.partition_list.addItem(partition_info)
-                    # 存储分区信息
-                    self.partition_list.item(i).setData(Qt.UserRole, partition)
-            except Exception as e:
-                self.partition_list.addItem(f"获取分区信息失败: {str(e)}")
-                self.log_update(f"获取分区信息失败: {str(e)}")
-            
-            layout.addWidget(self.partition_list)
-            
-            # 按钮布局
-            button_layout = QHBoxLayout()
-            button_layout.addStretch()
-            
-            ok_button = QPushButton("确定")
-            cancel_button = QPushButton("取消")
-            
-            def on_ok():
-                selected_items = self.partition_list.selectedItems()
-                if selected_items:
-                    selected_partition = selected_items[0].data(Qt.UserRole)
-                    # 检查对象是否存在
-                    if hasattr(self, 'target_line_edit') and self.target_line_edit:
-                        self.target_line_edit.setText(selected_partition['mountpoint'])
-                    dialog.accept()
-            
-            ok_button.clicked.connect(on_ok)
-            cancel_button.clicked.connect(dialog.reject)
-            
-            button_layout.addWidget(ok_button)
-            button_layout.addWidget(cancel_button)
-            
-            layout.addLayout(button_layout)
-            dialog.setLayout(layout)
-            
-            dialog.exec_()
     
     def start_deletion(self):
         """
@@ -384,43 +281,8 @@ class DeletionTab(QWidget):
         target_path = self.target_line_edit.text().strip()
         
         if not target_path:
-            if self.partition_radio.isChecked():
-                self.log_update("请选择要删除的分区")
-            else:
-                self.log_update("请选择要删除的文件或文件夹")
+            self.log_update("请选择要删除的文件或文件夹")
             return
-        
-        # 处理分区删除的情况
-        if self.partition_radio.isChecked():
-            # 确认删除操作
-            from PyQt5.QtWidgets import QMessageBox
-            
-            reply = QMessageBox.question(
-                self, "删除确认", f"确定要彻底删除分区 '{target_path}' 内的所有文件吗？此操作不可恢复！",
-                QMessageBox.Yes | QMessageBox.No, QMessageBox.No
-            )
-            
-            if reply != QMessageBox.Yes:
-                return
-            
-            # 清空日志和进度条
-            self.log_text_edit.clear()
-            self.progress_bar.setValue(0)
-            self.progress_bar.setVisible(True)
-            self.time_remaining_label.setText("剩余时间: 计算中...")
-            self.time_remaining_label.setVisible(True)
-            
-            # 禁用按钮
-            self.start_btn.setEnabled(False)
-            self.cancel_btn.setEnabled(True)
-            
-            # 创建并启动删除工作线程
-            self.worker = DeletionWorker(target_path, "partition")
-            self.worker.progress_update.connect(self.update_progress)
-            self.worker.log_update.connect(self.log_update)
-            self.worker.time_remaining.connect(self.update_time_remaining)
-            self.worker.finished.connect(self.deletion_finished)
-            self.worker.start()
         # 处理多个文件的情况
         elif self.file_radio.isChecked() and ";" in target_path:
             # 分割文件路径
