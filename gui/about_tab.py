@@ -101,8 +101,8 @@ class AboutTab(QWidget):
         support_text = QLabel(
             "如果您在使用过程中遇到问题，欢迎联系我们的技术支持团队。\n\n" +
             "邮箱: qexefecet276@gmail.com\n" +
-            "网站: http://fcfs.free.nf\n" +
-            "文档: http://fcfs.free.nf/docs"
+            "网站: http://www.fcfs.free.nf/\n" +
+            "文档: http://www.fcfs.free.nf/docs"
         )
         support_text.setAlignment(Qt.AlignCenter)
         support_text.setWordWrap(True)
@@ -181,4 +181,4 @@ FullCycleFileShield (FCFS) 软件许可协议
         """
         访问官网
         """
-        QDesktopServices.openUrl(QUrl("http://fcfs.free.nf"))
+        QDesktopServices.openUrl(QUrl("http://www.fcfs.free.nf/"))
