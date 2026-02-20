@@ -345,9 +345,12 @@ class DecryptionTab(QWidget):
             selected_items = partition_list.selectedItems()
             if selected_items:
                 selected_partition = selected_items[0].data(Qt.UserRole)
-                self.output_folder_line_edit.setText(selected_partition['mountpoint'])
+                # 检查对象是否存在
+                if hasattr(self, 'output_folder_line_edit') and self.output_folder_line_edit:
+                    self.output_folder_line_edit.setText(selected_partition['mountpoint'])
                 # 自动选择分区解密选项
-                self.partition_radio.setChecked(True)
+                if hasattr(self, 'partition_radio') and self.partition_radio:
+                    self.partition_radio.setChecked(True)
                 dialog.accept()
         
         ok_button.clicked.connect(on_ok)

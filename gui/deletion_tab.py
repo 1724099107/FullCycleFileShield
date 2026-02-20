@@ -360,7 +360,9 @@ class DeletionTab(QWidget):
                 selected_items = self.partition_list.selectedItems()
                 if selected_items:
                     selected_partition = selected_items[0].data(Qt.UserRole)
-                    self.target_line_edit.setText(selected_partition['mountpoint'])
+                    # 检查对象是否存在
+                    if hasattr(self, 'target_line_edit') and self.target_line_edit:
+                        self.target_line_edit.setText(selected_partition['mountpoint'])
                     dialog.accept()
             
             ok_button.clicked.connect(on_ok)
