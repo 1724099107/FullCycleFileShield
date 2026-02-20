@@ -1,7 +1,8 @@
 import os
 from PyQt5.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QLineEdit,
-    QFileDialog, QProgressBar, QTextEdit, QGroupBox, QCheckBox, QComboBox
+    QFileDialog, QProgressBar, QTextEdit, QGroupBox, QCheckBox, QComboBox,
+    QRadioButton, QButtonGroup, QDialog, QListWidget
 )
 from PyQt5.QtCore import Qt, QThread, pyqtSignal
 from PyQt5.QtGui import QTextCursor
@@ -159,6 +160,31 @@ class EncryptionTab(QWidget):
         # 创建主布局
         main_layout = QVBoxLayout()
         
+        # 加密类型选择部分
+        type_group = QGroupBox("加密类型")
+        type_layout = QHBoxLayout()
+        
+        # 创建单选按钮组
+        self.type_group = QButtonGroup()
+        
+        # 文件加密选项
+        self.file_radio = QRadioButton("文件加密")
+        self.file_radio.setChecked(True)
+        self.type_group.addButton(self.file_radio)
+        
+        # 文件夹加密选项
+        self.folder_radio = QRadioButton("文件夹加密")
+        self.type_group.addButton(self.folder_radio)
+        
+        # 分区加密选项
+        self.partition_radio = QRadioButton("分区加密")
+        self.type_group.addButton(self.partition_radio)
+        
+        type_layout.addWidget(self.file_radio)
+        type_layout.addWidget(self.folder_radio)
+        type_layout.addWidget(self.partition_radio)
+        type_group.setLayout(type_layout)
+        
         # 输入选择部分
         input_group = QGroupBox("选择待加密内容")
         input_layout = QVBoxLayout()
@@ -178,9 +204,13 @@ class EncryptionTab(QWidget):
         folder_browse_btn = QPushButton("选择文件夹")
         folder_browse_btn.clicked.connect(self.browse_folder)
         
+        partition_browse_btn = QPushButton("选择分区")
+        partition_browse_btn.clicked.connect(self.browse_partition)
+        
         browse_layout.addWidget(file_browse_btn)
         browse_layout.addWidget(files_browse_btn)
         browse_layout.addWidget(folder_browse_btn)
+        browse_layout.addWidget(partition_browse_btn)
         
         input_layout.addWidget(self.input_line_edit)
         input_layout.addLayout(browse_layout)
@@ -336,6 +366,62 @@ class EncryptionTab(QWidget):
                 output_path += ".7z.enc"
             self.output_line_edit.setText(output_path)
     
+    def browse_partition(self):
+        """
+        浏览选择待加密分区
+        """
+        from deletion.partition_deletion import PartitionDeletion
+        
+        # 创建分区选择对话框
+        dialog = QDialog(self)
+        dialog.setWindowTitle("选择待加密分区")
+        dialog.setGeometry(100, 100, 600, 400)
+        
+        layout = QVBoxLayout()
+        
+        # 分区列表
+        partition_list = QListWidget()
+        
+        # 获取分区信息
+        deleter = PartitionDeletion()
+        partitions = deleter.get_partitions()
+        
+        for i, partition in enumerate(partitions):
+            partition_info = f"{partition['device']} - {partition['description']}"
+            partition_info += f" (文件系统: {partition['file_system']}, 总容量: {partition['size'] / (1024 ** 3):.2f} GB)"
+            partition_list.addItem(partition_info)
+            # 存储分区信息
+            partition_list.item(i).setData(Qt.UserRole, partition)
+        
+        layout.addWidget(partition_list)
+        
+        # 按钮布局
+        button_layout = QHBoxLayout()
+        button_layout.addStretch()
+        
+        ok_button = QPushButton("确定")
+        cancel_button = QPushButton("取消")
+        
+        def on_ok():
+            selected_items = partition_list.selectedItems()
+            if selected_items:
+                selected_partition = selected_items[0].data(Qt.UserRole)
+                self.input_line_edit.setText(selected_partition['mountpoint'])
+                # 自动选择分区加密选项
+                self.partition_radio.setChecked(True)
+                dialog.accept()
+        
+        ok_button.clicked.connect(on_ok)
+        cancel_button.clicked.connect(dialog.reject)
+        
+        button_layout.addWidget(ok_button)
+        button_layout.addWidget(cancel_button)
+        
+        layout.addLayout(button_layout)
+        dialog.setLayout(layout)
+        
+        dialog.exec_()
+    
 
     
     def start_encryption(self):
@@ -347,11 +433,14 @@ class EncryptionTab(QWidget):
         output_path = self.output_line_edit.text().strip()
         
         if not input_text:
-            self.log_update("请选择待加密的文件或文件夹")
+            self.log_update("请选择待加密的文件、文件夹或分区")
             return
         
         # 确定输入路径
-        if self.is_file_list:
+        if self.partition_radio.isChecked():
+            # 分区加密
+            input_path = input_text
+        elif self.is_file_list:
             # 使用存储的文件列表，确保file_list属性存在
             if hasattr(self, 'file_list'):
                 input_path = self.file_list
