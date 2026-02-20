@@ -4,7 +4,33 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>d1tools.com</title>
+    <script>
+        // 版本号，每次更新时修改
+        const version = '1.0.9';
+        
+        // 确保所有链接都带有版本参数
+        document.addEventListener('DOMContentLoaded', function() {
+            // 更新页面中的所有链接
+            const links = document.querySelectorAll('a[href]');
+            links.forEach(link => {
+                const href = link.getAttribute('href');
+                // 只处理本地链接，不处理外部链接
+                if (href && (href.startsWith('#') || href.endsWith('.html') || href === 'index.html')) {
+                    if (href.startsWith('#')) {
+                        // 锚点链接不需要修改
+                        return;
+                    }
+                    // 添加版本参数
+                    const separator = href.includes('?') ? '&' : '?';
+                    link.setAttribute('href', href + separator + 'v=' + version);
+                }
+            });
+        });
+    </script>
 	<style type="text/css">
 		
 [data-color-mode*='light'], [data-color-mode*='light'] body, .markdown-body[theme*='light'] {
