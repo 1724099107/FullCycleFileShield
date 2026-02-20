@@ -146,7 +146,12 @@ class DecryptionTab(QWidget):
         self.file_radio.setChecked(True)
         self.type_group.addButton(self.file_radio)
         
+        # 分区解密选项
+        self.partition_radio = QRadioButton("分区解密")
+        self.type_group.addButton(self.partition_radio)
+        
         type_layout.addWidget(self.file_radio)
+        type_layout.addWidget(self.partition_radio)
         type_group.setLayout(type_layout)
         
         # 加密包选择部分
@@ -158,8 +163,12 @@ class DecryptionTab(QWidget):
         encrypted_file_browse_btn = QPushButton("浏览...")
         encrypted_file_browse_btn.clicked.connect(self.browse_encrypted_file)
         
+        partition_browse_btn = QPushButton("选择分区")
+        partition_browse_btn.clicked.connect(self.browse_partition)
+        
         encrypted_file_layout.addWidget(self.encrypted_file_line_edit)
         encrypted_file_layout.addWidget(encrypted_file_browse_btn)
+        encrypted_file_layout.addWidget(partition_browse_btn)
         encrypted_file_group.setLayout(encrypted_file_layout)
         
         # 输出文件夹部分
@@ -292,7 +301,68 @@ class DecryptionTab(QWidget):
         else:
             self.log_update("剪贴板中没有可用的密钥")
     
-
+    def browse_partition(self):
+        """
+        浏览选择解密目标分区
+        """
+        from deletion.partition_deletion import PartitionDeletion
+        
+        # 创建分区选择对话框
+        dialog = QDialog(self)
+        dialog.setWindowTitle("选择解密目标分区")
+        dialog.setGeometry(100, 100, 600, 400)
+        
+        layout = QVBoxLayout()
+        
+        # 分区列表
+        partition_list = QListWidget()
+        
+        # 获取分区信息
+        try:
+            deleter = PartitionDeletion()
+            partitions = deleter.get_partitions()
+            
+            for i, partition in enumerate(partitions):
+                partition_info = f"{partition['device']} - {partition['description']}"
+                partition_info += f" (文件系统: {partition['file_system']}, 总容量: {partition['size'] / (1024 ** 3):.2f} GB)"
+                partition_list.addItem(partition_info)
+                # 存储分区信息
+                partition_list.item(i).setData(Qt.UserRole, partition)
+        except Exception as e:
+            partition_list.addItem(f"获取分区信息失败: {str(e)}")
+            self.log_update(f"获取分区信息失败: {str(e)}")
+        
+        layout.addWidget(partition_list)
+        
+        # 按钮布局
+        button_layout = QHBoxLayout()
+        button_layout.addStretch()
+        
+        ok_button = QPushButton("确定")
+        cancel_button = QPushButton("取消")
+        
+        def on_ok():
+            selected_items = partition_list.selectedItems()
+            if selected_items:
+                selected_partition = selected_items[0].data(Qt.UserRole)
+                # 检查对象是否存在
+                if hasattr(self, 'output_folder_line_edit') and self.output_folder_line_edit:
+                    self.output_folder_line_edit.setText(selected_partition['mountpoint'])
+                # 自动选择分区解密选项
+                if hasattr(self, 'partition_radio') and self.partition_radio:
+                    self.partition_radio.setChecked(True)
+                dialog.accept()
+        
+        ok_button.clicked.connect(on_ok)
+        cancel_button.clicked.connect(dialog.reject)
+        
+        button_layout.addWidget(ok_button)
+        button_layout.addWidget(cancel_button)
+        
+        layout.addLayout(button_layout)
+        dialog.setLayout(layout)
+        
+        dialog.exec_()
     
     def start_decryption(self):
         """
@@ -308,8 +378,12 @@ class DecryptionTab(QWidget):
             return
         
         if not output_folder:
-            # 如果未指定输出文件夹，使用默认路径
-            output_folder = encrypted_file + "_decrypted"
+            if self.partition_radio.isChecked():
+                self.log_update("请选择解密目标分区")
+                return
+            else:
+                # 如果未指定输出文件夹，使用默认路径
+                output_folder = encrypted_file + "_decrypted"
         
         if not master_key:
             self.log_update("请输入主密钥")
