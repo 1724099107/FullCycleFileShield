@@ -333,15 +333,19 @@ class DeletionTab(QWidget):
             self.partition_list = QListWidget()
             
             # 获取分区信息
-            deleter = PartitionDeletion()
-            partitions = deleter.get_partitions()
-            
-            for i, partition in enumerate(partitions):
-                partition_info = f"{partition['device']} - {partition['description']}"
-                partition_info += f" (文件系统: {partition['file_system']}, 总容量: {partition['size'] / (1024 ** 3):.2f} GB)"
-                self.partition_list.addItem(partition_info)
-                # 存储分区信息
-                self.partition_list.item(i).setData(Qt.UserRole, partition)
+            try:
+                deleter = PartitionDeletion()
+                partitions = deleter.get_partitions()
+                
+                for i, partition in enumerate(partitions):
+                    partition_info = f"{partition['device']} - {partition['description']}"
+                    partition_info += f" (文件系统: {partition['file_system']}, 总容量: {partition['size'] / (1024 ** 3):.2f} GB)"
+                    self.partition_list.addItem(partition_info)
+                    # 存储分区信息
+                    self.partition_list.item(i).setData(Qt.UserRole, partition)
+            except Exception as e:
+                self.partition_list.addItem(f"获取分区信息失败: {str(e)}")
+                self.log_update(f"获取分区信息失败: {str(e)}")
             
             layout.addWidget(self.partition_list)
             

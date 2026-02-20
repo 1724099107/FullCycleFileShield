@@ -71,12 +71,20 @@ class PartitionDeletion:
         }
         
         # 初始化线程池
-        self.max_threads = self._get_optimal_thread_count()
-        self.logger.info(f"初始化线程池，最大线程数: {self.max_threads}")
+        try:
+            self.max_threads = self._get_optimal_thread_count()
+            self.logger.info(f"初始化线程池，最大线程数: {self.max_threads}")
+        except Exception as e:
+            self.logger.error(f"初始化线程池失败: {str(e)}")
+            self.max_threads = 4  # 默认值
         
         # 初始化硬件信息
-        self.hardware_info = self._get_hardware_info()
-        self.logger.info(f"硬件信息: {json.dumps(self.hardware_info, indent=2, ensure_ascii=False)}")
+        try:
+            self.hardware_info = self._get_hardware_info()
+            self.logger.info(f"硬件信息: {json.dumps(self.hardware_info, indent=2, ensure_ascii=False)}")
+        except Exception as e:
+            self.logger.error(f"初始化硬件信息失败: {str(e)}")
+            self.hardware_info = {'error': '获取硬件信息失败'}
     
     def _get_optimal_thread_count(self):
         """
