@@ -302,6 +302,7 @@
                 <li><a href="#features">核心功能</a></li>
                 <li><a href="#tech">技术架构</a></li>
                 <li><a href="#about">关于项目</a></li>
+                <li><a href="#docs">使用文档</a></li>
                 <li><a href="#download">下载</a></li>
             </ul>
         </div>
@@ -422,6 +423,35 @@
         </div>
     </section>
     
+    <section id="docs">
+        <div class="container">
+            <div class="section-title">
+                <h2>使用文档</h2>
+                <p>详细的使用指南，帮助您快速上手 FCFS</p>
+            </div>
+            
+            <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <p style="font-size: 1.1rem; line-height: 1.8; color: #555; margin-bottom: 40px;">
+                    我们提供了详细的使用文档，帮助您了解 FCFS 的所有功能和使用方法。
+                    您可以通过以下链接访问完整的项目使用文档。
+                </p>
+                
+                <a href="http://www.fcfs.free.nf/docs.html" class="btn" style="margin-bottom: 40px;">访问项目使用文档</a>
+                
+                <div style="text-align: left; margin-top: 60px;">
+                    <h3 style="margin-bottom: 20px; color: #2c3e50;">文档内容</h3>
+                    <ul style="max-width: 600px; margin: 0 auto;">
+                        <li style="margin-bottom: 10px;">安装指南：如何在 Windows 系统上安装 FCFS</li>
+                        <li style="margin-bottom: 10px;">快速入门：基本功能的使用方法</li>
+                        <li style="margin-bottom: 10px;">高级功能：详细的功能说明和使用技巧</li>
+                        <li style="margin-bottom: 10px;">常见问题：使用过程中可能遇到的问题及解决方案</li>
+                        <li style="margin-bottom: 10px;">安全指南：最佳安全实践和建议</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
     <section class="cta" id="download">
         <div class="container">
             <h2>开始保护您的数据安全</h2>
@@ -435,8 +465,9 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>联系我们</h3>
-                    <p>邮箱: support@fcfs.free.nf</p>
-                    <p>网站: http://fcfs.free.nf</p>
+                    <p>邮箱: qexefecet276@gmail.com</p>
+                    <p>网站: http://www.fcfs.free.nf/</p>
+                    <p>文档: http://www.fcfs.free.nf/docs.html</p>
                 </div>
                 
                 <div class="footer-section">
@@ -445,6 +476,7 @@
                     <p><a href="#features">核心功能</a></p>
                     <p><a href="#tech">技术架构</a></p>
                     <p><a href="#about">关于项目</a></p>
+                    <p><a href="#docs">使用文档</a></p>
                 </div>
                 
                 <div class="footer-section">

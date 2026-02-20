@@ -7,6 +7,7 @@
 - **开发团队**: ~~TraeAI Development Team~~ 神秘代码组织
 - **联系方式**: qexefecet276@gmail.com
 - **官方网站**: [http://www.fcfs.free.nf/](http://www.fcfs.free.nf/)
+- **使用文档**: [http://www.fcfs.free.nf/docs.html](http://www.fcfs.free.nf/docs.html)
 - **发布日期**: 2026-02-19 午夜
 
 ## 项目概述

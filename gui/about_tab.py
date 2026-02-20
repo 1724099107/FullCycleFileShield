@@ -102,7 +102,7 @@ class AboutTab(QWidget):
             "如果您在使用过程中遇到问题，欢迎联系我们的技术支持团队。\n\n" +
             "邮箱: qexefecet276@gmail.com\n" +
             "网站: http://www.fcfs.free.nf/\n" +
-            "文档: http://www.fcfs.free.nf/docs"
+            "文档: http://www.fcfs.free.nf/docs.html"
         )
         support_text.setAlignment(Qt.AlignCenter)
         support_text.setWordWrap(True)

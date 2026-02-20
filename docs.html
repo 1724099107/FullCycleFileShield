@@ -1,0 +1,1221 @@
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>d1tools.com</title>
+	<style type="text/css">
+		
+[data-color-mode*='light'], [data-color-mode*='light'] body, .markdown-body[theme*='light'] {
+  --color-prettylights-syntax-comment: #6e7781;
+  --color-prettylights-syntax-constant: #0550ae;
+  --color-prettylights-syntax-entity: #8250df;
+  --color-prettylights-syntax-storage-modifier-import: #24292f;
+  --color-prettylights-syntax-entity-tag: #116329;
+  --color-prettylights-syntax-keyword: #cf222e;
+  --color-prettylights-syntax-string: #0a3069;
+  --color-prettylights-syntax-variable: #953800;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #82071e;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-invalid-illegal-bg: #82071e;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-carriage-return-bg: #cf222e;
+  --color-prettylights-syntax-string-regexp: #116329;
+  --color-prettylights-syntax-markup-list: #3b2300;
+  --color-prettylights-syntax-markup-heading: #0550ae;
+  --color-prettylights-syntax-markup-italic: #24292f;
+  --color-prettylights-syntax-markup-bold: #24292f;
+  --color-prettylights-syntax-markup-deleted-text: #82071e;
+  --color-prettylights-syntax-markup-deleted-bg: #FFEBE9;
+  --color-prettylights-syntax-markup-inserted-text: #116329;
+  --color-prettylights-syntax-markup-inserted-bg: #dafbe1;
+  --color-prettylights-syntax-markup-changed-text: #953800;
+  --color-prettylights-syntax-markup-changed-bg: #ffd8b5;
+  --color-prettylights-syntax-markup-ignored-text: #eaeef2;
+  --color-prettylights-syntax-markup-ignored-bg: #0550ae;
+  --color-prettylights-syntax-meta-diff-range: #8250df;
+  --color-prettylights-syntax-brackethighlighter-angle: #57606a;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #8c959f;
+  --color-prettylights-syntax-constant-other-reference-link: #0a3069;
+  --color-fg-default: #24292f;
+  --color-fg-muted: #57606a;
+  --color-fg-subtle: #6e7781;
+  --color-canvas-default: #ffffff;
+  --color-canvas-subtle: #f6f8fa;
+  --color-border-default: #d0d7de;
+  --color-border-muted: hsla(210,18%,87%,1);
+  --color-neutral-muted: rgba(175,184,193,0.2);
+  --color-accent-fg: #0969da;
+  --color-accent-emphasis: #0969da;
+  --color-attention-subtle: #fff8c5;
+  --color-danger-fg: #cf222e;
+}
+[data-color-mode*='dark'], [data-color-mode*='dark'] body, .markdown-body[theme*='dark'] {
+  --color-prettylights-syntax-comment: #8b949e;
+  --color-prettylights-syntax-constant: #79c0ff;
+  --color-prettylights-syntax-entity: #d2a8ff;
+  --color-prettylights-syntax-storage-modifier-import: #c9d1d9;
+  --color-prettylights-syntax-entity-tag: #7ee787;
+  --color-prettylights-syntax-keyword: #ff7b72;
+  --color-prettylights-syntax-string: #a5d6ff;
+  --color-prettylights-syntax-variable: #ffa657;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #f85149;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-invalid-illegal-bg: #8e1519;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-carriage-return-bg: #b62324;
+  --color-prettylights-syntax-string-regexp: #7ee787;
+  --color-prettylights-syntax-markup-list: #f2cc60;
+  --color-prettylights-syntax-markup-heading: #1f6feb;
+  --color-prettylights-syntax-markup-italic: #c9d1d9;
+  --color-prettylights-syntax-markup-bold: #c9d1d9;
+  --color-prettylights-syntax-markup-deleted-text: #ffdcd7;
+  --color-prettylights-syntax-markup-deleted-bg: #67060c;
+  --color-prettylights-syntax-markup-inserted-text: #aff5b4;
+  --color-prettylights-syntax-markup-inserted-bg: #033a16;
+  --color-prettylights-syntax-markup-changed-text: #ffdfb6;
+  --color-prettylights-syntax-markup-changed-bg: #5a1e02;
+  --color-prettylights-syntax-markup-ignored-text: #c9d1d9;
+  --color-prettylights-syntax-markup-ignored-bg: #1158c7;
+  --color-prettylights-syntax-meta-diff-range: #d2a8ff;
+  --color-prettylights-syntax-brackethighlighter-angle: #8b949e;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #484f58;
+  --color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
+  --color-fg-default: #c9d1d9;
+  --color-fg-muted: #8b949e;
+  --color-fg-subtle: #484f58;
+  --color-canvas-default: #0d1117;
+  --color-canvas-subtle: #161b22;
+  --color-border-default: #30363d;
+  --color-border-muted: #21262d;
+  --color-neutral-muted: rgba(110,118,129,0.4);
+  --color-accent-fg: #58a6ff;
+  --color-accent-emphasis: #1f6feb;
+  --color-attention-subtle: rgba(187,128,9,0.15);
+  --color-danger-fg: #f85149;
+}
+
+.markdown-body {
+  display: block;
+  -webkit-text-size-adjust: 100%;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-size: 16px;
+  line-height: 1.5;
+  word-wrap: break-word;
+  color: var(--color-fg-default);
+  background-color: var(--color-canvas-default);
+}
+
+.markdown-body details,
+.markdown-body figcaption,
+.markdown-body figure {
+  display: block;
+}
+
+.markdown-body summary {
+  display: list-item;
+}
+
+.markdown-body [hidden] {
+  display: none !important;
+}
+
+.markdown-body a {
+  background-color: transparent;
+  color: var(--color-accent-fg);
+  text-decoration: none;
+}
+
+.markdown-body a:active,
+.markdown-body a:hover {
+  outline-width: 0;
+}
+
+.markdown-body abbr[title] {
+  border-bottom: none;
+  text-decoration: underline dotted;
+}
+
+.markdown-body b,
+.markdown-body strong {
+  font-weight: 600;
+}
+
+.markdown-body dfn {
+  font-style: italic;
+}
+
+.markdown-body h1 {
+  margin: .67em 0;
+  font-weight: 600;
+  padding-bottom: .3em;
+  font-size: 2em;
+  border-bottom: 1px solid var(--color-border-muted);
+}
+
+.markdown-body mark {
+  background-color: var(--color-attention-subtle);
+  color: var(--color-text-primary);
+}
+
+.markdown-body small {
+  font-size: 90%;
+}
+
+.markdown-body sub,
+.markdown-body sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+.markdown-body sub {
+  bottom: -0.25em;
+}
+
+.markdown-body sup {
+  top: -0.5em;
+}
+
+.markdown-body img {
+  border-style: none;
+  max-width: 100%;
+  box-sizing: content-box;
+  background-color: var(--color-canvas-default);
+}
+
+.markdown-body code,
+.markdown-body kbd,
+.markdown-body pre,
+.markdown-body samp {
+  font-family: monospace,monospace;
+  font-size: 1em;
+}
+
+.markdown-body figure {
+  margin: 1em 40px;
+}
+
+.markdown-body hr {
+  box-sizing: content-box;
+  overflow: hidden;
+  background: transparent;
+  border-bottom: 1px solid var(--color-border-muted);
+  height: .25em;
+  padding: 0;
+  margin: 24px 0;
+  background-color: var(--color-border-default);
+  border: 0;
+}
+
+.markdown-body input {
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.markdown-body [type=button],
+.markdown-body [type=reset],
+.markdown-body [type=submit] {
+  -webkit-appearance: button;
+}
+
+.markdown-body [type=button]::-moz-focus-inner,
+.markdown-body [type=reset]::-moz-focus-inner,
+.markdown-body [type=submit]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+.markdown-body [type=button]:-moz-focusring,
+.markdown-body [type=reset]:-moz-focusring,
+.markdown-body [type=submit]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+.markdown-body [type=checkbox],
+.markdown-body [type=radio] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.markdown-body [type=number]::-webkit-inner-spin-button,
+.markdown-body [type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+.markdown-body [type=search] {
+  -webkit-appearance: textfield;
+  outline-offset: -2px;
+}
+
+.markdown-body [type=search]::-webkit-search-cancel-button,
+.markdown-body [type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+.markdown-body ::-webkit-input-placeholder {
+  color: inherit;
+  opacity: .54;
+}
+
+.markdown-body ::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  font: inherit;
+}
+
+.markdown-body a:hover {
+  text-decoration: underline;
+}
+
+.markdown-body hr::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body hr::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow: auto;
+}
+
+.markdown-body td,
+.markdown-body th {
+  padding: 0;
+}
+
+.markdown-body details summary {
+  cursor: pointer;
+}
+
+.markdown-body details:not([open])>*:not(summary) {
+  display: none !important;
+}
+
+.markdown-body kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font: 11px ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
+  line-height: 10px;
+  color: var(--color-fg-default);
+  vertical-align: middle;
+  background-color: var(--color-canvas-subtle);
+  border: solid 1px var(--color-neutral-muted);
+  border-bottom-color: var(--color-neutral-muted);
+  border-radius: 6px;
+  box-shadow: inset 0 -1px 0 var(--color-neutral-muted);
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.markdown-body h2 {
+  font-weight: 600;
+  padding-bottom: .3em;
+  font-size: 1.5em;
+  border-bottom: 1px solid var(--color-border-muted);
+}
+
+.markdown-body h3 {
+  font-weight: 600;
+  font-size: 1.25em;
+}
+
+.markdown-body h4 {
+  font-weight: 600;
+  font-size: 1em;
+}
+
+.markdown-body h5 {
+  font-weight: 600;
+  font-size: .875em;
+}
+
+.markdown-body h6 {
+  font-weight: 600;
+  font-size: .85em;
+  color: var(--color-fg-muted);
+}
+
+.markdown-body p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.markdown-body blockquote {
+  margin: 0;
+  padding: 0 1em;
+  color: var(--color-fg-muted);
+  border-left: .25em solid var(--color-border-default);
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 2em;
+}
+
+.markdown-body ol ol,
+.markdown-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ul ul ol,
+.markdown-body ul ol ol,
+.markdown-body ol ul ol,
+.markdown-body ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body dd {
+  margin-left: 0;
+}
+
+.markdown-body tt,
+.markdown-body code {
+  font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
+  font-size: 12px;
+}
+
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
+  font-size: 12px;
+  word-wrap: normal;
+}
+
+.markdown-body .octicon {
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-body ::placeholder {
+  color: var(--color-fg-subtle);
+  opacity: 1;
+}
+
+.markdown-body input::-webkit-outer-spin-button,
+.markdown-body input::-webkit-inner-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.markdown-body .token.comment, .markdown-body .token.prolog, .markdown-body .token.doctype, .markdown-body .token.cdata {
+  color: var(--color-prettylights-syntax-comment);
+}
+.markdown-body .token.namespace { opacity: 0.7; }
+.markdown-body .token.tag, .markdown-body .token.selector, .markdown-body .token.constant, .markdown-body .token.symbol, .markdown-body .token.deleted {
+  color: var(--color-prettylights-syntax-entity-tag);
+}
+.markdown-body .token.maybe-class-name {
+  color: var(--color-prettylights-syntax-variable);
+}
+.markdown-body .token.property-access, .markdown-body .token.operator, .markdown-body .token.boolean, .markdown-body .token.number, .markdown-body .token.selector .markdown-body .token.class, .markdown-body .token.attr-name, .markdown-body .token.string, .markdown-body .token.char, .markdown-body .token.builtin {
+  color: var(--color-prettylights-syntax-constant);
+}
+
+.markdown-body .token.deleted {
+  color: var(--color-prettylights-syntax-markup-deleted-text);
+}
+.markdown-body .token.property {
+  color: var(--color-prettylights-syntax-constant);
+}
+.markdown-body .token.punctuation {
+  color: var(--color-prettylights-syntax-markup-bold);
+}
+.markdown-body .token.function {
+  color: var(--color-prettylights-syntax-entity);
+}
+.markdown-body .code-line .token.deleted {
+  background-color: var(--color-prettylights-syntax-markup-deleted-bg);
+}
+.markdown-body .token.inserted {
+  color: var(--color-prettylights-syntax-markup-inserted-text);
+}
+.markdown-body .code-line .token.inserted {
+  background-color: var(--color-prettylights-syntax-markup-inserted-bg);
+}
+
+.markdown-body .token.variable {
+  color: var(--color-prettylights-syntax-constant);
+}
+.markdown-body .token.entity, .markdown-body .token.url, .language-css .markdown-body .token.string, .style .markdown-body .token.string {
+  color: var(--color-prettylights-syntax-string);
+}
+.markdown-body .token.color, .markdown-body .token.atrule, .markdown-body .token.attr-value, .markdown-body .token.function, .markdown-body .token.class-name {
+  color: var(--color-prettylights-syntax-string);
+}
+.markdown-body .token.rule, .markdown-body .token.regex, .markdown-body .token.important, .markdown-body .token.keyword {
+  color: var(--color-prettylights-syntax-keyword);
+}
+.markdown-body .token.coord {
+  color: var(--color-prettylights-syntax-meta-diff-range);
+}
+.markdown-body .token.important, .markdown-body .token.bold { font-weight: bold; }
+.markdown-body .token.italic { font-style: italic; }
+.markdown-body .token.entity { cursor: help; }
+
+.markdown-body [data-catalyst] {
+  display: block;
+}
+
+.markdown-body g-emoji {
+  font-family: "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 1em;
+  font-style: normal !important;
+  font-weight: 400;
+  line-height: 1;
+  vertical-align: -0.075em;
+}
+
+.markdown-body g-emoji img {
+  width: 1em;
+  height: 1em;
+}
+
+.markdown-body::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body>*:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+.markdown-body a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.markdown-body .absent {
+  color: var(--color-danger-fg);
+}
+
+.markdown-body a.anchor {
+  float: left;
+  padding-right: 4px;
+  margin-left: -20px;
+  line-height: 1;
+}
+
+.markdown-body a.anchor:focus {
+  outline: none;
+}
+
+.markdown-body p,
+.markdown-body blockquote,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body dl,
+.markdown-body table,
+.markdown-body pre,
+.markdown-body details {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.markdown-body blockquote>:first-child {
+  margin-top: 0;
+}
+
+.markdown-body blockquote>:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body sup>a::before {
+  content: "[";
+}
+
+.markdown-body sup>a::after {
+  content: "]";
+}
+
+.markdown-body .octicon-video {
+  border: 1px solid #d0d7de !important;
+  border-radius: 6px !important;
+  display: block;
+}
+
+.markdown-body .octicon-video summary {
+    border-bottom: 1px solid #d0d7de !important;
+    padding: 8px 16px !important;
+    cursor: pointer;
+}
+
+.markdown-body .octicon-video > video {
+    display: block !important;
+    max-width: 100% !important;
+    padding: 2px;
+    box-sizing: border-box;
+    border-bottom-right-radius: 6px !important;
+    border-bottom-left-radius: 6px !important;
+}
+
+.markdown-body details.octicon-video:not([open])>*:not(summary) {
+    display: none !important;
+}
+
+.markdown-body details.octicon-video:not([open]) > summary {
+    border-bottom: 0 !important;
+}
+
+.markdown-body h1 .octicon-link,
+.markdown-body h2 .octicon-link,
+.markdown-body h3 .octicon-link,
+.markdown-body h4 .octicon-link,
+.markdown-body h5 .octicon-link,
+.markdown-body h6 .octicon-link {
+  color: var(--color-fg-default);
+  vertical-align: middle;
+  visibility: hidden;
+}
+
+.markdown-body h1:hover .anchor,
+.markdown-body h2:hover .anchor,
+.markdown-body h3:hover .anchor,
+.markdown-body h4:hover .anchor,
+.markdown-body h5:hover .anchor,
+.markdown-body h6:hover .anchor {
+  text-decoration: none;
+}
+
+.markdown-body h1:hover .anchor .octicon-link,
+.markdown-body h2:hover .anchor .octicon-link,
+.markdown-body h3:hover .anchor .octicon-link,
+.markdown-body h4:hover .anchor .octicon-link,
+.markdown-body h5:hover .anchor .octicon-link,
+.markdown-body h6:hover .anchor .octicon-link {
+  visibility: visible;
+}
+
+.markdown-body h1 tt,
+.markdown-body h1 code,
+.markdown-body h2 tt,
+.markdown-body h2 code,
+.markdown-body h3 tt,
+.markdown-body h3 code,
+.markdown-body h4 tt,
+.markdown-body h4 code,
+.markdown-body h5 tt,
+.markdown-body h5 code,
+.markdown-body h6 tt,
+.markdown-body h6 code {
+  padding: 0 .2em;
+  font-size: inherit;
+}
+
+.markdown-body ul.no-list,
+.markdown-body ol.no-list {
+  padding: 0;
+  list-style-type: none;
+}
+
+.markdown-body ol[type="1"] {
+  list-style-type: decimal;
+}
+
+.markdown-body ol[type=a] {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body ol[type=i] {
+  list-style-type: lower-roman;
+}
+
+.markdown-body div>ol:not([type]) {
+  list-style-type: decimal;
+}
+
+.markdown-body ul ul,
+.markdown-body ul ol,
+.markdown-body ol ol,
+.markdown-body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body li>p {
+  margin-top: 16px;
+}
+
+.markdown-body li+li {
+  margin-top: .25em;
+}
+
+.markdown-body dl {
+  padding: 0;
+}
+
+.markdown-body dl dt {
+  padding: 0;
+  margin-top: 16px;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.markdown-body dl dd {
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+
+.markdown-body table th {
+  font-weight: 600;
+}
+
+.markdown-body table th,
+.markdown-body table td {
+  padding: 6px 13px;
+  border: 1px solid var(--color-border-default);
+}
+
+.markdown-body table tr {
+  background-color: var(--color-canvas-default);
+  border-top: 1px solid var(--color-border-muted);
+}
+
+.markdown-body table tr:nth-child(2n) {
+  background-color: var(--color-canvas-subtle);
+}
+
+.markdown-body table img {
+  background-color: transparent;
+  vertical-align: middle;
+}
+
+.markdown-body img[align=right] {
+  padding-left: 20px;
+}
+
+.markdown-body img[align=left] {
+  padding-right: 20px;
+}
+
+.markdown-body .emoji {
+  max-width: none;
+  vertical-align: text-top;
+  background-color: transparent;
+}
+
+.markdown-body span.frame {
+  display: block;
+  overflow: hidden;
+}
+
+.markdown-body span.frame>span {
+  display: block;
+  float: left;
+  width: auto;
+  padding: 7px;
+  margin: 13px 0 0;
+  overflow: hidden;
+  border: 1px solid var(--color-border-default);
+}
+
+.markdown-body span.frame span img {
+  display: block;
+  float: left;
+}
+
+.markdown-body span.frame span span {
+  display: block;
+  padding: 5px 0 0;
+  clear: both;
+  color: var(--color-fg-default);
+}
+
+.markdown-body span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.markdown-body span.align-center>span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+.markdown-body span.align-center span img {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.markdown-body span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.markdown-body span.align-right>span {
+  display: block;
+  margin: 13px 0 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.markdown-body span.align-right span img {
+  margin: 0;
+  text-align: right;
+}
+
+.markdown-body span.float-left {
+  display: block;
+  float: left;
+  margin-right: 13px;
+  overflow: hidden;
+}
+
+.markdown-body span.float-left span {
+  margin: 13px 0 0;
+}
+
+.markdown-body span.float-right {
+  display: block;
+  float: right;
+  margin-left: 13px;
+  overflow: hidden;
+}
+
+.markdown-body span.float-right>span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.markdown-body code,
+.markdown-body tt {
+  padding: .2em .4em;
+  margin: 0;
+  font-size: 85%;
+  background-color: var(--color-neutral-muted);
+  border-radius: 6px;
+}
+
+.markdown-body code br,
+.markdown-body tt br {
+  display: none;
+}
+
+.markdown-body del code {
+  text-decoration: inherit;
+}
+
+.markdown-body pre code {
+  font-size: 100%;
+}
+
+.markdown-body pre>code {
+  padding: 0;
+  margin: 0;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.markdown-body pre {
+  position: relative;
+  font-size: 85%;
+  line-height: 1.45;
+  background-color: var(--color-canvas-subtle);
+  border-radius: 6px;
+}
+
+.markdown-body pre code,
+.markdown-body pre tt {
+  display: inline;
+  max-width: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.markdown-body pre > code {
+  padding: 16px;
+  overflow: auto;
+  display: block;
+}
+
+.markdown-body .csv-data td,
+.markdown-body .csv-data th {
+  padding: 5px;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.markdown-body .csv-data .blob-num {
+  padding: 10px 8px 9px;
+  text-align: right;
+  background: var(--color-canvas-default);
+  border: 0;
+}
+
+.markdown-body .csv-data tr {
+  border-top: 0;
+}
+
+.markdown-body .csv-data th {
+  font-weight: 600;
+  background: var(--color-canvas-subtle);
+  border-top: 0;
+}
+
+.markdown-body .footnotes {
+  font-size: 12px;
+  color: var(--color-fg-muted);
+  border-top: 1px solid var(--color-border-default);
+}
+
+.markdown-body .footnotes ol {
+  padding-left: 16px;
+}
+
+.markdown-body .footnotes li {
+  position: relative;
+}
+
+.markdown-body .footnotes li:target::before {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  bottom: -8px;
+  left: -24px;
+  pointer-events: none;
+  content: "";
+  border: 2px solid var(--color-accent-emphasis);
+  border-radius: 6px;
+}
+
+.markdown-body .footnotes li:target {
+  color: var(--color-fg-default);
+}
+
+.markdown-body .footnotes .data-footnote-backref g-emoji {
+  font-family: monospace;
+}
+
+.markdown-body .task-list-item {
+  list-style-type: none;
+}
+
+.markdown-body .task-list-item label {
+  font-weight: 400;
+}
+
+.markdown-body .task-list-item.enabled label {
+  cursor: pointer;
+}
+
+.markdown-body .task-list-item+.task-list-item {
+  margin-top: 3px;
+}
+
+.markdown-body .task-list-item .handle {
+  display: none;
+}
+
+.markdown-body .task-list-item-checkbox,
+.markdown-body input[type="checkbox"] {
+  margin: 0 .2em .25em -1.6em;
+  vertical-align: middle;
+}
+
+.markdown-body .contains-task-list:dir(rtl) .task-list-item-checkbox,
+.markdown-body .contains-task-list:dir(rtl) input[type="checkbox"] {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.markdown-body ::-webkit-calendar-picker-indicator {
+  filter: invert(50%);
+}
+body {padding: 2em;}
+	</style>
+  </head>
+  <body>
+  <div class="markdown-body">
+    <h1>FullCycleFileShield (FCFS)</h1>
+<h2>项目基本信息</h2>
+<ul>
+<li><strong>项目名称</strong>: FullCycleFileShield (FCFS)</li>
+<li><strong>版本号</strong>: 1.0.9</li>
+<li><strong>开发团队</strong>: <del>TraeAI Development Team</del> 神秘代码组织</li>
+<li><strong>联系方式</strong>: <a href="mailto:qexefecet276@gmail.com">qexefecet276@gmail.com</a></li>
+<li><strong>官方网站</strong>: <a href="http://www.fcfs.free.nf/">http://www.fcfs.free.nf/</a></li>
+<li><strong>发布日期</strong>: 2026-02-19 午夜</li>
+</ul>
+<h2>项目概述</h2>
+<p>FullCycleFileShield (FCFS) 是一款符合 GB/T39786-2021 第5级和 BMB21-2019 标准的文件加密/解密/删除工具，为个人提供全方位数据安全防护。</p>
+<p><em>警告：使用本软件可能会接触到您不应该知道的秘密，一旦启动，就无法回头...</em></p>
+<h3>核心功能</h3>
+<ol>
+<li>
+<p><strong>混合加密</strong>: 三层加密架构</p>
+<ul>
+<li>量子密钥生成与封装 (从数字世界的缝隙中窃取密钥)</li>
+<li>双对称算法加密（AES-256 + SM4模拟）</li>
+<li>自定义抗量子算法加密 (古老的加密咒语)</li>
+</ul>
+</li>
+<li>
+<p><strong>安全删除</strong>: 基于 BMB21-2019 标准</p>
+<ul>
+<li>5遍覆写（全零、全1、随机、交替01、随机）</li>
+<li>元数据擦除 (抹除所有存在过的痕迹)</li>
+<li>内存缓存清除 (清除你脑海中的记忆)</li>
+<li>SSD TRIM 操作（可选）</li>
+</ul>
+</li>
+<li>
+<p><strong>7Z压缩</strong>: 支持高压缩级别（1-9）</p>
+</li>
+<li>
+<p><strong>CPU运算</strong>: 仅使用CPU进行计算</p>
+<ul>
+<li>确保在任何环境下都能稳定运行</li>
+<li>无需额外的硬件加速设备</li>
+<li>优化的CPU计算性能</li>
+<li>支持CPU模式作为备用方案</li>
+</ul>
+</li>
+<li>
+<p><strong>图形界面</strong>: 多标签页布局，系统托盘集成</p>
+<ul>
+<li>优化的窗口初始化流程，确保快速显示</li>
+<li>增强的错误处理，提高稳定性</li>
+</ul>
+</li>
+<li>
+<p><strong>分区删除</strong>: 基于BMB21-2019标准的分区级文件彻底删除</p>
+<ul>
+<li>多线程并行删除机制，显著提升处理效率</li>
+<li>动态线程池管理，根据系统负载自动调整线程数量</li>
+<li>硬件兼容性实现，支持主流CPU架构和国产CPU</li>
+<li>软件兼容性实现，仅支持Windows平台</li>
+</ul>
+</li>
+<li>
+<p><strong>虚拟机兼容</strong>: 优化了在虚拟机环境中的运行性能</p>
+<ul>
+<li>自动检测虚拟机环境</li>
+<li>适配虚拟机硬件限制</li>
+</ul>
+</li>
+<li>
+<p><strong>Windows兼容</strong>: 支持Windows 10/11等主流Windows操作系统</p>
+<ul>
+<li>适配不同硬件架构（x86、x86-64等）</li>
+<li>支持国产处理器的Windows设备</li>
+</ul>
+</li>
+</ol>
+<h2>技术架构</h2>
+<ul>
+<li>
+<p><strong>开发语言</strong>: Python 3.9+ (使用了一些不为人知的库)</p>
+</li>
+<li>
+<p><strong>核心库</strong>:</p>
+<ul>
+<li>PyQt5: GUI界面</li>
+<li>pycryptodomex: 密码学算法</li>
+<li>py7zr: 7Z压缩</li>
+<li>psutil: 系统资源监控</li>
+<li>numpy: 数据处理</li>
+</ul>
+</li>
+<li>
+<p><strong>支持平台</strong>: Windows 10/11</p>
+</li>
+<li>
+<p><strong>虚拟机支持</strong>: VirtualBox, VMware, Hyper-V等</p>
+</li>
+<li>
+<p><strong>硬件架构支持</strong>: x86, x86-64</p>
+</li>
+<li>
+<p><strong>国产硬件支持</strong>: 基于龙芯、飞腾、鲲鹏等国产处理器的Windows设备</p>
+</li>
+</ul>
+<h2>快速开始</h2>
+<h3>离线环境准备</h3>
+<p>项目已包含完整的离线依赖包，存储在：</p>
+<ul>
+<li><code>offline_deps/</code>：离线依赖包目录（推荐，包含最新依赖）</li>
+<li><code>lib/</code>：本地依赖目录（备用）</li>
+</ul>
+<p><em>注意：这些目录中可能隐藏着一些你不应该看到的东西...</em></p>
+<h3>启动程序</h3>
+<p>使用以下方法之一启动程序：</p>
+<p><strong>方法一：使用启动脚本（推荐）</strong></p>
+<pre class="language-bash"><code class="language-bash code-highlight"><span class="code-line line-number" line="1"><span class="token comment"># Windows</span>
+</span><span class="code-line line-number" line="2">python start_fcfs.py
+</span></code></pre>
+<p><strong>方法二：使用批处理文件（Windows）</strong></p>
+<pre class="language-bash"><code class="language-bash code-highlight"><span class="code-line line-number" line="1">run_fcfs.bat
+</span></code></pre>
+<p><em>警告：一旦启动，程序会开始监视你的每一个操作...</em></p>
+<h2>安装步骤</h2>
+<h3>1. 系统要求</h3>
+<ul>
+<li><strong>操作系统</strong>：Windows 10/11, Linux, macOS</li>
+<li><strong>Python版本</strong>：3.12及以上</li>
+<li><strong>硬件要求</strong>：至少4GB内存，10GB可用磁盘空间</li>
+<li><strong>DirectX要求</strong>：Windows系统需要DirectX 12或更高版本（Intel核显加速需要）</li>
+</ul>
+<h3>2. 安装方法</h3>
+<h4>方法一：使用pip安装依赖（推荐）</h4>
+<ol>
+<li>
+<p>克隆仓库</p>
+<pre class="language-bash"><code class="language-bash code-highlight"><span class="code-line line-number" line="1"><span class="token function">git</span> clone https://github.com/1724099107/FullCycleFileShield.git
+</span><span class="code-line line-number" line="2"><span class="token builtin class-name">cd</span> FullCycleFileShield
+</span></code></pre>
+</li>
+<li>
+<p>安装依赖</p>
+<pre class="language-bash"><code class="language-bash code-highlight"><span class="code-line line-number" line="1"><span class="token comment"># Windows</span>
+</span><span class="code-line line-number" line="2">pip <span class="token function">install</span> <span class="token parameter variable">-r</span> requirements.txt
+</span></code></pre>
+</li>
+<li>
+<p>运行程序</p>
+<pre class="language-bash"><code class="language-bash code-highlight"><span class="code-line line-number" line="1"><span class="token comment"># Windows</span>
+</span><span class="code-line line-number" line="2">python start_fcfs.py
+</span></code></pre>
+</li>
+</ol>
+<h4>方法二：使用批处理文件（Windows）</h4>
+<pre class="language-bash"><code class="language-bash code-highlight"><span class="code-line line-number" line="1">run_fcfs.bat
+</span></code></pre>
+<h3>3. 依赖包说明</h3>
+<p>由于GitHub的文件大小限制（100MB），我们没有包含<code>offline_deps</code>目录在仓库中。启动脚本会自动从系统的<code>site-packages</code>目录加载依赖包，因此您需要确保所有必要的依赖包都已正确安装。</p>
+<h3>5. 系统配置</h3>
+<p>该系统仅使用CPU进行计算，无需额外的硬件加速设备。确保您的系统满足以下要求：</p>
+<ul>
+<li>至少4GB内存</li>
+<li>10GB可用磁盘空间</li>
+<li>Python 3.12或更高版本</li>
+</ul>
+<p>系统会自动使用CPU进行所有计算，确保在任何环境下都能稳定运行。</p>
+<h2>使用指南</h2>
+<h3>1. 加密文件</h3>
+<ol>
+<li>打开程序，选择"加密模式"标签页</li>
+<li>选择要加密的文件夹</li>
+<li>设置输出目录</li>
+<li>选择压缩级别（1-9，默认为5）</li>
+<li>点击"开始加密"按钮</li>
+</ol>
+<p><em>注意：加密后的文件将永远无法被未授权的人打开，包括你自己...</em></p>
+<h3>2. 解密文件</h3>
+<ol>
+<li>打开程序，选择"解密模式"标签页</li>
+<li>选择要解密的加密包</li>
+<li>设置输出目录</li>
+<li>点击"开始解密"按钮</li>
+</ol>
+<p><em>警告：解密过程中可能会出现一些奇怪的现象，如文件内容发生变化...</em></p>
+<h3>3. 删除文件</h3>
+<ol>
+<li>打开程序，选择"文件删除"标签页</li>
+<li>选择要删除的文件或文件夹</li>
+<li>点击"开始删除"按钮</li>
+</ol>
+<p><em>注意：删除后的文件将永远消失，不会留下任何痕迹...</em></p>
+<h3>4. 删除分区</h3>
+<ol>
+<li>打开程序，选择"文件删除"标签页</li>
+<li>在"删除类型"部分选择"分区删除"选项</li>
+<li>点击"浏览..."按钮，选择要删除的分区</li>
+<li>点击"开始删除"按钮，确认删除操作</li>
+<li>程序会在后台执行分区删除操作，并显示删除进度和日志</li>
+</ol>
+<p><em>警告：分区删除是不可逆的，一旦开始，就无法停止...</em></p>
+<h3>5. 系统托盘操作</h3>
+<ul>
+<li>最小化程序时，会自动隐藏到系统托盘</li>
+<li>点击系统托盘图标可以显示/隐藏主窗口</li>
+<li>右键点击系统托盘图标可以选择退出程序</li>
+</ul>
+<p><em>注意：即使退出程序，它仍然可能在后台监视你的活动...</em></p>
+<h2>配置说明</h2>
+<h3>配置文件</h3>
+<p>配置文件存储在 <code>config/settings.json</code> 中，包含以下配置项：</p>
+<ul>
+<li><strong>密钥管理</strong>: 存储加密密钥信息</li>
+<li><strong>系统设置</strong>: 程序运行相关设置</li>
+<li><strong>界面设置</strong>: GUI界面相关设置</li>
+</ul>
+<p><em>警告：修改配置文件可能会导致程序行为异常，甚至触发未知的副作用...</em></p>
+<h3>配置修改</h3>
+<ol>
+<li>打开 <code>config/settings.json</code> 文件</li>
+<li>修改相应配置项</li>
+<li>保存文件并重启程序</li>
+</ol>
+<h2>常见问题排查</h2>
+<h3>依赖加载失败</h3>
+<p><strong>症状</strong>：启动时提示依赖导入失败
+<strong>解决方案</strong>：</p>
+<ol>
+<li>检查<code>lib/</code>目录是否包含必要的依赖</li>
+<li>确保Python版本为3.9或更高</li>
+</ol>
+<h3>GUI启动失败</h3>
+<p><strong>症状</strong>：启动时提示PyQt5相关错误
+<strong>解决方案</strong>：</p>
+<ol>
+<li>检查<code>lib/PyQt5</code>目录是否存在</li>
+<li>确保系统已安装必要的系统依赖</li>
+</ol>
+  </div>
+  </body>
+</html>
