@@ -41,13 +41,11 @@ FullCycleFileShield (FCFS) 是一款符合 GB/T39786-2021 第5级和 BMB21-2019 
    - 优化的窗口初始化流程，确保快速显示
    - 增强的错误处理，提高稳定性
 
-
-
-8. **虚拟机兼容**: 优化了在虚拟机环境中的运行性能
+6. **虚拟机兼容**: 优化了在虚拟机环境中的运行性能
    - 自动检测虚拟机环境
    - 适配虚拟机硬件限制
 
-9. **Windows兼容**: 支持Windows 10/11等主流Windows操作系统
+7. **Windows兼容**: 支持Windows 10/11等主流Windows操作系统
    - 适配不同硬件架构（x86、x86-64等）
    - 支持国产处理器的Windows设备
 
@@ -96,7 +94,7 @@ run_fcfs.bat
 ## 安装步骤
 
 ### 1. 系统要求
-- **操作系统**：Windows 10/11, Linux, macOS
+- **操作系统**：Windows 10/11
 - **Python版本**：3.12及以上
 - **硬件要求**：至少4GB内存，10GB可用磁盘空间
 - **DirectX要求**：Windows系统需要DirectX 12或更高版本（Intel核显加速需要）
@@ -206,16 +204,16 @@ run_fcfs.bat
 1. 检查`lib/PyQt5`目录是否存在
 2. 确保系统已安装必要的系统依赖
 
-### 分区选择时程序闪退
-**症状**：点击"选择分区"按钮后程序闪退
-**解决方案**：
-1. 确保程序已更新到最新版本
-2. 检查系统权限是否足够
-3. 确保分区未被其他程序占用
-
 ### 对象删除错误
 **症状**：出现"wrapped C/C++ object of type QRadioButton has been deleted"错误
 **解决方案**：
 1. 程序已修复此问题，确保使用最新版本
 2. 如果问题仍然存在，尝试以管理员身份运行程序
+
+## 联系方式
+
+如果您有任何问题或建议，请通过以下方式联系我们：
+
+- 电子邮件：qexefecet276@gmail.com
+- GitHub：[FullCycleFileShield](https://github.com/1724099107/FullCycleFileShield)
 
