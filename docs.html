@@ -1,0 +1,231 @@
+<h1>FullCycleFileShield (FCFS)</h1>
+<h2>项目基本信息</h2>
+<ul>
+<li><strong>项目名称</strong>: FullCycleFileShield (FCFS)</li>
+<li><strong>版本号</strong>: 1.0.9</li>
+<li><strong>开发者</strong>: 陈修祺</li>
+<li><strong>联系方式</strong>: <a href="mailto:qexefecet276@gmail.com">qexefecet276@gmail.com</a></li>
+<li><strong>官方网站</strong>: <a href="http://www.fcfs.free.nf/">http://www.fcfs.free.nf/</a></li>
+<li><strong>使用文档</strong>: <a href="http://www.fcfs.free.nf/docs.html">http://www.fcfs.free.nf/docs.html</a></li>
+<li><strong>发布日期</strong>: 2026-03-22 午夜</li>
+</ul>
+<h2>项目概述</h2>
+<p>FullCycleFileShield (FCFS) 是由陈修祺开发的一款符合 GB/T39786-2021 第5级和 BMB21-2019 标准的文件加密/解密/删除工具，为个人提供全方位数据安全防护。</p>
+<p><em>警告：使用本软件可能会接触到您不应该知道的秘密，一旦启动，就无法回头…</em></p>
+<h3>核心功能</h3>
+<ol>
+<li>
+<p><strong>混合加密</strong>: 三层加密架构</p>
+<ul>
+<li>量子密钥生成与封装 (从数字世界的缝隙中窃取密钥)</li>
+<li>双对称算法加密（AES-256 + SM4模拟）</li>
+<li>自定义抗量子算法加密 (古老的加密咒语)</li>
+</ul>
+</li>
+<li>
+<p><strong>安全删除</strong>: 基于 BMB21-2019 标准</p>
+<ul>
+<li>5遍覆写（全零、全1、随机、交替01、随机）</li>
+<li>元数据擦除 (抹除所有存在过的痕迹)</li>
+<li>内存缓存清除 (清除你脑海中的记忆)</li>
+<li>SSD TRIM 操作（可选）</li>
+</ul>
+</li>
+<li>
+<p><strong>7Z压缩</strong>: 支持高压缩级别（1-9）</p>
+</li>
+<li>
+<p><strong>CPU运算</strong>: 仅使用CPU进行计算</p>
+<ul>
+<li>确保在任何环境下都能稳定运行</li>
+<li>无需额外的硬件加速设备</li>
+<li>优化的CPU计算性能</li>
+<li>支持CPU模式作为备用方案</li>
+</ul>
+</li>
+<li>
+<p><strong>图形界面</strong>: 多标签页布局，系统托盘集成</p>
+<ul>
+<li>优化的窗口初始化流程，确保快速显示</li>
+<li>增强的错误处理，提高稳定性</li>
+</ul>
+</li>
+<li>
+<p><strong>虚拟机兼容</strong>: 优化了在虚拟机环境中的运行性能</p>
+<ul>
+<li>自动检测虚拟机环境</li>
+<li>适配虚拟机硬件限制</li>
+</ul>
+</li>
+<li>
+<p><strong>Windows兼容</strong>: 支持Windows 10/11等主流Windows操作系统</p>
+<ul>
+<li>适配不同硬件架构（x86、x86-64等）</li>
+<li>支持国产处理器的Windows设备</li>
+</ul>
+</li>
+</ol>
+<h2>技术架构</h2>
+<ul>
+<li>
+<p><strong>开发语言</strong>: Python 3.9+ (使用了一些不为人知的库)</p>
+</li>
+<li>
+<p><strong>核心库</strong>:</p>
+<ul>
+<li>PyQt5: GUI界面</li>
+<li>pycryptodomex: 密码学算法</li>
+<li>py7zr: 7Z压缩</li>
+<li>psutil: 系统资源监控</li>
+<li>numpy: 数据处理</li>
+</ul>
+</li>
+<li>
+<p><strong>支持平台</strong>: Windows 10/11</p>
+</li>
+<li>
+<p><strong>虚拟机支持</strong>: VirtualBox, VMware, Hyper-V等</p>
+</li>
+<li>
+<p><strong>硬件架构支持</strong>: x86, x86-64</p>
+</li>
+<li>
+<p><strong>国产硬件支持</strong>: 基于龙芯、飞腾、鲲鹏等国产处理器的Windows设备</p>
+</li>
+</ul>
+<h2>快速开始</h2>
+<h3>离线环境准备</h3>
+<p>项目已包含完整的离线依赖包，存储在：</p>
+<ul>
+<li><code>offline_deps/</code>：离线依赖包目录（推荐，包含最新依赖）</li>
+<li><code>lib/</code>：本地依赖目录（备用）</li>
+</ul>
+<p><em>注意：这些目录中可能隐藏着一些你不应该看到的东西…</em></p>
+<h3>启动程序</h3>
+<p>使用以下方法之一启动程序：</p>
+<p><strong>方法一：使用启动脚本（推荐）</strong></p>
+<pre><code class="language-bash"><span class="hljs-comment"># Windows</span>
+python start_fcfs.py
+</code></pre>
+<p><strong>方法二：使用批处理文件（Windows）</strong></p>
+<pre><code class="language-bash">run_fcfs.bat
+</code></pre>
+<p><em>警告：一旦启动，程序会开始监视你的每一个操作…</em></p>
+<h2>安装步骤</h2>
+<h3>1. 系统要求</h3>
+<ul>
+<li><strong>操作系统</strong>：Windows 10/11</li>
+<li><strong>Python版本</strong>：3.12及以上</li>
+<li><strong>硬件要求</strong>：至少4GB内存，10GB可用磁盘空间</li>
+<li><strong>DirectX要求</strong>：Windows系统需要DirectX 12或更高版本（Intel核显加速需要）</li>
+</ul>
+<h3>2. 安装方法</h3>
+<h4>方法一：使用pip安装依赖（推荐）</h4>
+<ol>
+<li>
+<p>克隆仓库</p>
+<pre><code class="language-bash">git <span class="hljs-built_in">clone</span> https://github.com/1724099107/FullCycleFileShield.git
+<span class="hljs-built_in">cd</span> FullCycleFileShield
+</code></pre>
+</li>
+<li>
+<p>安装依赖</p>
+<pre><code class="language-bash"><span class="hljs-comment"># Windows</span>
+pip install -r requirements.txt
+</code></pre>
+</li>
+<li>
+<p>运行程序</p>
+<pre><code class="language-bash"><span class="hljs-comment"># Windows</span>
+python start_fcfs.py
+</code></pre>
+</li>
+</ol>
+<h4>方法二：使用批处理文件（Windows）</h4>
+<pre><code class="language-bash">run_fcfs.bat
+</code></pre>
+<h3>3. 依赖包说明</h3>
+<p>由于GitHub的文件大小限制（100MB），我们没有包含<code>offline_deps</code>目录在仓库中。启动脚本会自动从系统的<code>site-packages</code>目录加载依赖包，因此您需要确保所有必要的依赖包都已正确安装。</p>
+<h3>5. 系统配置</h3>
+<p>该系统仅使用CPU进行计算，无需额外的硬件加速设备。确保您的系统满足以下要求：</p>
+<ul>
+<li>至少4GB内存</li>
+<li>10GB可用磁盘空间</li>
+<li>Python 3.12或更高版本</li>
+</ul>
+<p>系统会自动使用CPU进行所有计算，确保在任何环境下都能稳定运行。</p>
+<h2>使用指南</h2>
+<h3>1. 加密文件</h3>
+<ol>
+<li>打开程序，选择&quot;加密模式&quot;标签页</li>
+<li>选择要加密的文件夹</li>
+<li>设置输出目录</li>
+<li>选择压缩级别（1-9，默认为5）</li>
+<li>点击&quot;开始加密&quot;按钮</li>
+</ol>
+<p><em>注意：加密后的文件将永远无法被未授权的人打开，包括你自己…</em></p>
+<h3>2. 解密文件</h3>
+<ol>
+<li>打开程序，选择&quot;解密模式&quot;标签页</li>
+<li>选择要解密的加密包</li>
+<li>设置输出目录</li>
+<li>点击&quot;开始解密&quot;按钮</li>
+</ol>
+<p><em>警告：解密过程中可能会出现一些奇怪的现象，如文件内容发生变化…</em></p>
+<h3>3. 删除文件</h3>
+<ol>
+<li>打开程序，选择&quot;文件删除&quot;标签页</li>
+<li>选择要删除的文件或文件夹</li>
+<li>点击&quot;开始删除&quot;按钮</li>
+</ol>
+<p><em>注意：删除后的文件将永远消失，不会留下任何痕迹…</em></p>
+<h3>4. 系统托盘操作</h3>
+<ul>
+<li>最小化程序时，会自动隐藏到系统托盘</li>
+<li>点击系统托盘图标可以显示/隐藏主窗口</li>
+<li>右键点击系统托盘图标可以选择退出程序</li>
+</ul>
+<p><em>注意：即使退出程序，它仍然可能在后台监视你的活动…</em></p>
+<h2>配置说明</h2>
+<h3>配置文件</h3>
+<p>配置文件存储在 <code>config/settings.json</code> 中，包含以下配置项：</p>
+<ul>
+<li><strong>密钥管理</strong>: 存储加密密钥信息</li>
+<li><strong>系统设置</strong>: 程序运行相关设置</li>
+<li><strong>界面设置</strong>: GUI界面相关设置</li>
+</ul>
+<p><em>警告：修改配置文件可能会导致程序行为异常，甚至触发未知的副作用…</em></p>
+<h3>配置修改</h3>
+<ol>
+<li>打开 <code>config/settings.json</code> 文件</li>
+<li>修改相应配置项</li>
+<li>保存文件并重启程序</li>
+</ol>
+<h2>常见问题排查</h2>
+<h3>依赖加载失败</h3>
+<p><strong>症状</strong>：启动时提示依赖导入失败
+<strong>解决方案</strong>：</p>
+<ol>
+<li>检查<code>lib/</code>目录是否包含必要的依赖</li>
+<li>确保Python版本为3.9或更高</li>
+</ol>
+<h3>GUI启动失败</h3>
+<p><strong>症状</strong>：启动时提示PyQt5相关错误
+<strong>解决方案</strong>：</p>
+<ol>
+<li>检查<code>lib/PyQt5</code>目录是否存在</li>
+<li>确保系统已安装必要的系统依赖</li>
+</ol>
+<h3>对象删除错误</h3>
+<p><strong>症状</strong>：出现&quot;wrapped C/C++ object of type QRadioButton has been deleted&quot;错误
+<strong>解决方案</strong>：</p>
+<ol>
+<li>程序已修复此问题，确保使用最新版本</li>
+<li>如果问题仍然存在，尝试以管理员身份运行程序</li>
+</ol>
+<h2>联系方式</h2>
+<p>如果您有任何问题或建议，请通过以下方式联系我们：</p>
+<ul>
+<li>电子邮件：qexefecet276@gmail.com</li>
+<li>GitHub：<a href="https://github.com/1724099107/FullCycleFileShield">FullCycleFileShield</a></li>
+</ul>

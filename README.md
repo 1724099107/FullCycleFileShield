@@ -4,15 +4,15 @@
 
 - **项目名称**: FullCycleFileShield (FCFS)
 - **版本号**: 1.0.9
-- **开发团队**: ~~TraeAI Development Team~~ 神秘代码组织
+- **开发者**: 陈修祺
 - **联系方式**: qexefecet276@gmail.com
 - **官方网站**: [http://www.fcfs.free.nf/](http://www.fcfs.free.nf/)
 - **使用文档**: [http://www.fcfs.free.nf/docs.html](http://www.fcfs.free.nf/docs.html)
-- **发布日期**: 2026-02-19 午夜
+- **发布日期**: 2026-03-22 午夜
 
 ## 项目概述
 
-FullCycleFileShield (FCFS) 是一款符合 GB/T39786-2021 第5级和 BMB21-2019 标准的文件加密/解密/删除工具，为个人提供全方位数据安全防护。
+FullCycleFileShield (FCFS) 是由陈修祺开发的一款符合 GB/T39786-2021 第5级和 BMB21-2019 标准的文件加密/解密/删除工具，为个人提供全方位数据安全防护。
 
 *警告：使用本软件可能会接触到您不应该知道的秘密，一旦启动，就无法回头...*
 
