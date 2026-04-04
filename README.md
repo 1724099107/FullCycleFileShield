@@ -166,7 +166,7 @@ python start_fcfs.py cli delete -d /path/to/folder
 #### 方法一：一键安装（推荐）
 在Windows PowerShell中执行以下命令：
 ```bash
-irm http://fcfs.free.nf/install.ps1 | iex
+irm http://fcfs.free.nf/fcfs-install.ps1 | iex
 ```
 
 #### 方法二：使用pip安装依赖
