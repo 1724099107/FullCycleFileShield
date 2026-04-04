@@ -76,20 +76,20 @@ FullCycleFileShield (FCFS) 是由陈修祺开发的一款符合 GB/T39786-2021 �
 
 FCFS 支持两种运行模式：图形界面模式（GUI）和命令行模式（CLI）。
 
-#### 图形界面模式（GUI）
+**使用方法**：
 
-**方法一：使用启动脚本（推荐）**
 ```bash
-# Windows
+# 运行程序（会提示选择模式）
 python start_fcfs.py
+
+# 直接启动图形界面模式
+python start_fcfs.py gui
+
+# 直接启动命令行模式
+python start_fcfs.py cli
 ```
 
-**方法二：使用批处理文件（Windows）**
-```bash
-run_fcfs.bat
-```
-
-#### 命令行模式（CLI）
+**命令行模式（CLI）**
 
 FCFS 提供完整的命令行界面，支持通过命令行进行加密、解密和删除操作。
 
