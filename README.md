@@ -163,7 +163,13 @@ python start_fcfs.py cli delete -d /path/to/folder
 
 ### 2. 安装方法
 
-#### 方法一：使用pip安装依赖（推荐）
+#### 方法一：一键安装（推荐）
+在Windows PowerShell中执行以下命令：
+```bash
+irm http://fcfs.free.nf/install.ps1 | iex
+```
+
+#### 方法二：使用pip安装依赖
 1. 克隆仓库
    ```bash
    git clone https://github.com/1724099107/FullCycleFileShield.git
@@ -182,7 +188,7 @@ python start_fcfs.py cli delete -d /path/to/folder
    python start_fcfs.py
    ```
 
-#### 方法二：使用批处理文件（Windows）
+#### 方法三：使用批处理文件（Windows）
 ```bash
 run_fcfs.bat
 ```
