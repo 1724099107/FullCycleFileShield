@@ -84,3 +84,7 @@ intel_gpu_*.txt
 
 # 反馈文件
 feedback/*.log
+
+# 网站文件
+*.html
+
