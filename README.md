@@ -72,24 +72,86 @@ FullCycleFileShield (FCFS) 是由陈修祺开发的一款符合 GB/T39786-2021 �
 - `offline_deps/`：离线依赖包目录（推荐，包含最新依赖）
 - `lib/`：本地依赖目录（备用）
 
-*注意：这些目录中可能隐藏着一些你不应该看到的东西...*
-
 ### 启动程序
 
-使用以下方法之一启动程序：
+FCFS 支持两种运行模式：图形界面模式（GUI）和命令行模式（CLI）。
 
-**方法一：使用启动脚本（推荐）**
+**使用方法**：
+
 ```bash
-# Windows
+# 运行程序（会提示选择模式）
 python start_fcfs.py
+
+# 直接启动图形界面模式
+python start_fcfs.py gui
+
+# 直接启动命令行模式
+python start_fcfs.py cli
 ```
 
-**方法二：使用批处理文件（Windows）**
+**命令行模式（CLI）**
+
+FCFS 提供完整的命令行界面，支持通过命令行进行加密、解密和删除操作。
+
+**查看帮助**
 ```bash
-run_fcfs.bat
+python start_fcfs.py --help
+python start_fcfs.py cli --help
 ```
 
-*警告：一旦启动，程序会开始监视你的每一个操作...*
+**加密命令**
+```bash
+# 交互式加密
+python start_fcfs.py cli encrypt
+
+# 指定文件加密
+python start_fcfs.py cli encrypt -i /path/to/file.txt
+
+# 指定文件夹加密
+python start_fcfs.py cli encrypt -d /path/to/folder
+
+# 指定输出路径
+python start_fcfs.py cli encrypt -i file.txt -o output.7z.enc
+
+# 加密后删除原文件
+python start_fcfs.py cli encrypt -i file.txt --delete-original
+```
+
+**解密命令**
+```bash
+# 交互式解密
+python start_fcfs.py cli decrypt
+
+# 指定加密包解密
+python start_fcfs.py cli decrypt -i package.7z.enc
+
+# 指定输出文件夹
+python start_fcfs.py cli decrypt -i package.7z.enc -o /output/folder
+
+# 解密后删除加密包
+python start_fcfs.py cli decrypt -i package.7z.enc --delete-encrypted
+```
+
+**删除命令**
+```bash
+# 交互式删除
+python start_fcfs.py cli delete
+
+# 删除指定文件
+python start_fcfs.py cli delete -f file.txt
+
+# 删除指定文件夹
+python start_fcfs.py cli delete -d /path/to/folder
+```
+
+**CLI 特性**
+- 支持两种文件路径设置方式：
+  1. 从预设的默认文件夹中选择（文档、下载、桌面等）
+  2. 手动输入文件的绝对路径
+- 清晰的命令结构和子命令
+- 用户友好的交互式提示
+- 完整的错误处理机制
+- 详细的帮助文档
 
 ## 安装步骤
 
@@ -101,7 +163,7 @@ run_fcfs.bat
 
 ### 2. 安装方法
 
-#### 方法一：使用pip安装依赖（推荐）
+#### 方法一：使用pip安装依赖
 1. 克隆仓库
    ```bash
    git clone https://github.com/1724099107/FullCycleFileShield.git

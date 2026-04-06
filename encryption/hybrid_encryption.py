@@ -11,6 +11,19 @@ from .quantum_key import QuantumKeyGenerator
 from .anti_quantum_alg import AntiQuantumAlgorithm
 from utils.memory_cleaner import clear_memory, clear_sensitive_data
 
+# 自定义异常类
+class DecryptionError(Exception):
+    """解密失败的基类异常"""
+    pass
+
+class PaddingError(DecryptionError):
+    """填充验证失败异常"""
+    pass
+
+class InvalidCiphertextError(DecryptionError):
+    """无效密文异常"""
+    pass
+
 class HybridEncryption:
     """
     混合加密模块，实现三层加密架构
@@ -423,6 +436,11 @@ class HybridEncryption:
         
         Returns:
             bytes: 解密后的数据
+        
+        Raises:
+            InvalidCiphertextError: 当密文无效或太短时
+            PaddingError: 当填充验证失败时
+            DecryptionError: 当解密过程中发生其他错误时
         """
         try:
             # SM4需要16字节密钥，使用AES-128模拟
@@ -430,8 +448,7 @@ class HybridEncryption:
             
             # 分离IV和密文
             if len(ciphertext) < 16:
-                # 数据太短，无法解密
-                return ciphertext
+                raise InvalidCiphertextError("密文太短，无法解密")
             
             iv = ciphertext[:16]
             ciphertext = ciphertext[16:]
@@ -446,20 +463,19 @@ class HybridEncryption:
             # 解密数据，SM4的块大小也是16字节，与AES相同
             padded_data = cipher.decrypt(ciphertext)
             
-            # 尝试正确处理填充
+            # 验证并去除填充
             try:
                 data = unpad(padded_data, AES.block_size)
-            except ValueError:
-                # 如果填充不正确，返回原始解密数据
-                # 这可能会导致一些数据损坏，但至少可以继续解密过程
-                data = padded_data
+            except ValueError as e:
+                raise PaddingError("填充验证失败，数据可能已损坏") from e
             
             return data
+        except DecryptionError:
+            # 重新抛出自定义异常
+            raise
         except Exception as e:
-            # 记录错误但不抛出异常，尝试继续解密过程
-            print(f"SM4解密错误: {str(e)}")
-            # 返回原始数据，尝试继续解密过程
-            return ciphertext
+            # 将其他异常包装为DecryptionError
+            raise DecryptionError(f"SM4解密失败: {str(e)}") from e
     
     def aes_decrypt(self, ciphertext, key):
         """
@@ -471,6 +487,11 @@ class HybridEncryption:
         
         Returns:
             bytes: 解密后的数据
+        
+        Raises:
+            InvalidCiphertextError: 当密文无效或太短时
+            PaddingError: 当填充验证失败时
+            DecryptionError: 当解密过程中发生其他错误时
         """
         try:
             # AES-256需要32字节密钥
@@ -478,8 +499,7 @@ class HybridEncryption:
             
             # 分离IV和密文
             if len(ciphertext) < 16:
-                # 数据太短，无法解密
-                return ciphertext
+                raise InvalidCiphertextError("密文太短，无法解密")
             
             iv = ciphertext[:16]
             ciphertext = ciphertext[16:]
@@ -494,20 +514,19 @@ class HybridEncryption:
             # 解密数据
             padded_data = cipher.decrypt(ciphertext)
             
-            # 尝试正确处理填充
+            # 验证并去除填充
             try:
                 data = unpad(padded_data, AES.block_size)
-            except ValueError:
-                # 如果填充不正确，返回原始解密数据
-                # 这可能会导致一些数据损坏，但至少可以继续解密过程
-                data = padded_data
+            except ValueError as e:
+                raise PaddingError("填充验证失败，数据可能已损坏") from e
             
             return data
+        except DecryptionError:
+            # 重新抛出自定义异常
+            raise
         except Exception as e:
-            # 记录错误但不抛出异常，尝试继续解密过程
-            print(f"AES解密错误: {str(e)}")
-            # 返回原始数据，尝试继续解密过程
-            return ciphertext
+            # 将其他异常包装为DecryptionError
+            raise DecryptionError(f"AES解密失败: {str(e)}") from e
     
     def _decrypt_single_block(self, block, decrypt_func, key):
         """

@@ -239,6 +239,133 @@ def check_dependencies() -> bool:
     
     return all_core_ok
 
+def show_usage():
+    """
+    显示使用说明
+    """
+    print("""
+=== FullCycleFileShield 使用说明 ===
+
+启动模式:
+  1. 图形界面模式 (默认)
+     命令: python start_fcfs.py
+     或:   python start_fcfs.py gui
+
+  2. 命令行模式 (CLI)
+     命令: python start_fcfs.py cli [子命令]
+     
+     子命令:
+       encrypt   加密文件或文件夹
+       decrypt   解密加密包
+       delete    彻底删除文件或文件夹
+       
+     示例:
+       python start_fcfs.py cli encrypt -i file.txt
+       python start_fcfs.py cli decrypt -i package.7z.enc
+       python start_fcfs.py cli delete -f file.txt
+       
+     帮助:
+       python start_fcfs.py cli --help
+       python start_fcfs.py cli encrypt --help
+
+更多信息:
+  请查看 README.md 或项目文档
+=====================================
+""")
+
+
+def run_cli_mode(cli_args):
+    """
+    运行CLI模式
+    
+    Args:
+        cli_args: CLI参数列表
+    """
+    try:
+        from cli.main import CLI
+        cli = CLI()
+        
+        # 如果有命令行参数，直接执行
+        if cli_args:
+            return cli.run(cli_args)
+        else:
+            # 进入交互式命令输入循环
+            print("\n=== FullCycleFileShield 命令行模式 ===")
+            print("输入 'help' 查看可用命令")
+            print("输入 'exit' 退出程序")
+            print("====================================")
+            
+            while True:
+                try:
+                    # 显示命令提示符
+                    user_input = input("fcfs> ").strip()
+                    
+                    # 处理特殊命令
+                    if not user_input:
+                        continue
+                    elif user_input.lower() == 'exit':
+                        print("退出命令行模式...")
+                        return 0
+                    elif user_input.lower() == 'help':
+                        # 显示帮助信息
+                        cli.parser.print_help()
+                        continue
+                    
+                    # 解析用户输入并执行命令
+                    args = user_input.split()
+                    exit_code = cli.run(args)
+                    
+                    # 如果命令执行失败，继续循环
+                    if exit_code != 0:
+                        print("")
+                        continue
+                        
+                except KeyboardInterrupt:
+                    print("\n按下Ctrl+C，退出命令行模式...")
+                    return 0
+                except EOFError:
+                    print("\n退出命令行模式...")
+                    return 0
+                except Exception as e:
+                    print(f"命令执行出错: {str(e)}")
+                    print("\n")
+                    continue
+                    
+    except ImportError as e:
+        print(f"[ERROR] 无法启动CLI模式: {e}")
+        print("请确保CLI模块已正确安装")
+        return 1
+    except Exception as e:
+        print(f"[ERROR] CLI模式运行失败: {e}")
+        return 1
+
+
+def run_gui_mode():
+    """
+    运行GUI模式
+    """
+    try:
+        from gui.main_window import MainWindow
+        from PyQt5.QtWidgets import QApplication
+        
+        app = QApplication(sys.argv)
+        window = MainWindow()
+        return app.exec_()
+    except ImportError as e:
+        print(f"\n[ERROR] 导入主程序模块失败: {e}")
+        write_error_log("导入主程序模块失败", e)
+        print("\n按任意键退出...")
+        try:
+            input()
+        except:
+            pass
+        return 1
+    except Exception as e:
+        print(f"\n[ERROR] 启动主程序失败: {e}")
+        write_error_log("启动主程序失败", e)
+        raise
+
+
 if __name__ == "__main__":
     try:
         # 检查是否为Windows系统
@@ -253,9 +380,61 @@ if __name__ == "__main__":
                 pass
             sys.exit(1)
         
+        # 解析命令行参数
+        if len(sys.argv) > 1:
+            if sys.argv[1] in ('--help', '-h', 'help'):
+                show_usage()
+                sys.exit(0)
+            elif sys.argv[1] == 'cli':
+                # CLI模式
+                # 清除旧的错误日志
+                try:
+                    if os.path.exists(log_file):
+                        os.remove(log_file)
+                except:
+                    pass
+                
+                # 检查依赖
+                if not check_dependencies():
+                    print("\n[ERROR] 核心依赖检查失败")
+                    sys.exit(1)
+                
+                # 运行CLI
+                cli_args = sys.argv[2:] if len(sys.argv) > 2 else []
+                exit_code = run_cli_mode(cli_args)
+                sys.exit(exit_code)
+            elif sys.argv[1] == 'gui':
+                # GUI模式（显式指定）
+                mode = 'gui'
+            else:
+                print(f"[错误] 未知参数: {sys.argv[1]}")
+                show_usage()
+                sys.exit(1)
+        else:
+            # 让用户选择模式
+            print("\n=== 模式选择 ===")
+            print("请选择启动模式：")
+            print("1. 图形界面模式 (GUI)")
+            print("2. 命令行模式 (CLI)")
+            print()
+            
+            while True:
+                choice = input("请输入数字 (1-2): ").strip()
+                if choice == '1':
+                    mode = 'gui'
+                    break
+                elif choice == '2':
+                    mode = 'cli'
+                    break
+                else:
+                    print("输入错误，请重新输入！")
+        
         # 清除旧的错误日志
-        if os.path.exists(log_file):
-            os.remove(log_file)
+        try:
+            if os.path.exists(log_file):
+                os.remove(log_file)
+        except:
+            pass
         
         # 检查是否是首次启动
         first_run_flag = os.path.join(script_dir, ".first_run")
@@ -290,27 +469,16 @@ if __name__ == "__main__":
         
         print("\n所有核心依赖验证通过，启动主程序...")
         
-        # 启动主程序
-        try:
-            from gui.main_window import MainWindow
-            from PyQt5.QtWidgets import QApplication
-            
-            app = QApplication(sys.argv)
-            window = MainWindow()
-            sys.exit(app.exec_())
-        except ImportError as e:
-            print(f"\n[ERROR] 导入主程序模块失败: {e}")
-            write_error_log("导入主程序模块失败", e)
-            print("\n按任意键退出...")
-            try:
-                input()
-            except:
-                pass
-            sys.exit(1)
-        except Exception as e:
-            print(f"\n[ERROR] 启动主程序失败: {e}")
-            write_error_log("启动主程序失败", e)
-            raise
+        # 根据选择启动相应模式
+        if mode == 'gui':
+            # 启动GUI模式
+            exit_code = run_gui_mode()
+            sys.exit(exit_code)
+        elif mode == 'cli':
+            # 启动CLI模式
+            cli_args = sys.argv[2:] if len(sys.argv) > 2 else []
+            exit_code = run_cli_mode(cli_args)
+            sys.exit(exit_code)
         
     except Exception as e:
         print(f"\n[ERROR] 启动失败: {e}")
